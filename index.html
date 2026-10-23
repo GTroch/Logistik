@@ -1,0 +1,1026 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Die Paketreise</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: ein Lernpfad wie ein Förderband – Kapitelleiste oben, Kapitel nacheinander, jedes mit Aufgabe, Werkzeug und Lösungshilfe */
+:root{
+  --bg:#f3f5f7; --surface:#ffffff; --fg:#14202b; --muted:#56636f; --line:#d5dce2;
+  --steel:#1f3a52; --signal:#f2b705; --signal-ink:#1a1400; --good:#1d7a4f; --bad:#b3362c;
+  --soft:#e6ecf1; --chain:#4b3f8f;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f161d; --surface:#17212b; --fg:#e7edf2; --muted:#9aa8b4; --line:#2b3945;
+  --steel:#8fb6d6; --signal:#f5c533; --signal-ink:#1a1400; --good:#5cc495; --bad:#ef7a70; --soft:#1e2b37; --chain:#b3a7f0; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f161d; --surface:#17212b; --fg:#e7edf2; --muted:#9aa8b4; --line:#2b3945;
+  --steel:#8fb6d6; --signal:#f5c533; --signal-ink:#1a1400; --good:#5cc495; --bad:#ef7a70; --soft:#1e2b37; --chain:#b3a7f0; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.wrap{max-width:1000px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:72px}
+h1,h2,h3,h4{font-family:var(--display);text-wrap:balance;line-height:1.05;margin:0}
+h1{font-size:clamp(2.6rem,7vw,4.4rem);font-weight:800;letter-spacing:.01em;text-transform:uppercase}
+h2{font-size:clamp(1.9rem,4.5vw,2.6rem);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+h3{font-size:1.45rem;font-weight:700}
+h4{font-size:1.15rem;font-weight:700;letter-spacing:.02em}
+p{margin:0;max-width:68ch}
+ul{margin:0;padding-left:1.2em}
+.label{font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tape{height:10px;background:repeating-linear-gradient(-45deg,var(--signal) 0 14px,var(--fg) 14px 28px);border-radius:2px;opacity:.9}
+section{display:flex;flex-direction:column;gap:22px;scroll-margin-top:70px}
+.head{display:flex;flex-direction:column;gap:8px}
+.kicker{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.badge{font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;background:var(--signal);color:var(--signal-ink);padding:2px 8px;border-radius:3px}
+a{color:var(--steel)}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--signal);outline-offset:2px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid2>*,.grid3>*{min-width:0}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.btn{border:2px solid var(--fg);background:transparent;color:var(--fg);padding:8px 16px;border-radius:4px;font-weight:700}
+.btn.primary{background:var(--fg);color:var(--bg)}
+.btn.small{padding:4px 10px;font-size:.9rem}
+.btn:disabled{opacity:.35;cursor:default}
+.muted{color:var(--muted)}
+.note{font-size:.88rem;color:var(--muted)}
+.task{border:2px dashed var(--steel);border-radius:6px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+details.help{border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+details.help summary{padding:10px 16px;cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:8px}
+details.help summary::after{content:"anzeigen";font-family:var(--mono);font-size:.75rem;color:var(--muted);align-self:center}
+details.help[open] summary::after{content:"ausblenden"}
+details.help .in{padding:0 16px 16px;display:flex;flex-direction:column;gap:10px}
+.pill{display:inline-block;font-family:var(--mono);font-size:.75rem;padding:2px 8px;border-radius:99px;border:1px solid currentColor}
+.ok{color:var(--good)} .no{color:var(--bad)}
+
+/* Kapitelleiste */
+.chapters{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line);margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px)));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.chapters nav{display:flex;gap:4px;overflow-x:auto;padding-block:8px;scrollbar-width:thin}
+.chapters a{flex:0 0 auto;text-decoration:none;color:var(--fg);font-family:var(--display);font-weight:700;font-size:1rem;padding:4px 10px;border-radius:4px;white-space:nowrap}
+.chapters a span{font-family:var(--mono);font-size:.7rem;color:var(--muted);margin-right:4px}
+.chapters a.on{background:var(--signal);color:var(--signal-ink)}
+.chapters a.on span{color:var(--signal-ink)}
+
+/* Hero */
+.hero{display:grid;gap:18px}
+.hero .lead{font-size:1.15rem;color:var(--muted)}
+.label-card{display:inline-grid;grid-template-columns:auto 1fr;gap:4px 16px;align-items:center;border:2px dashed var(--line);border-radius:6px;padding:12px 16px;background:var(--surface);max-width:max-content}
+.barcode{grid-row:span 2;width:84px;height:40px;background:repeating-linear-gradient(90deg,var(--fg) 0 2px,transparent 2px 4px,var(--fg) 4px 7px,transparent 7px 9px,var(--fg) 9px 10px,transparent 10px 13px)}
+.label-card b{font-family:var(--mono);font-weight:500;font-size:.95rem}
+.map{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.map a{display:flex;flex-direction:column;gap:2px;text-decoration:none;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+.map a:hover{border-color:var(--steel)}
+.map a b{font-family:var(--display);font-size:1.1rem}
+
+/* Stationen */
+.belt{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.stop{flex:1 0 110px;display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 6px;border:2px solid var(--line);background:var(--surface);color:var(--fg);border-radius:6px;text-align:center}
+.stop .n{font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+.stop .t{font-family:var(--display);font-weight:700;font-size:1.1rem;line-height:1.1}
+.stop svg{width:30px;height:30px;stroke:var(--steel);fill:none;stroke-width:1.8}
+.stop[aria-selected="true"]{border-color:var(--signal);background:var(--signal);color:var(--signal-ink)}
+.stop[aria-selected="true"] .n{color:var(--signal-ink)}
+.stop[aria-selected="true"] svg{stroke:var(--signal-ink)}
+.track{height:6px;background:var(--soft);border-radius:3px;overflow:hidden}
+.track i{display:block;height:100%;background:var(--steel);transition:width .35s}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:22px;display:grid;grid-template-columns:1.3fr 1fr;gap:24px}
+.panel>*{min-width:0}
+.panel .tech{background:var(--soft);border-radius:6px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.nav{display:flex;gap:10px;justify-content:space-between;grid-column:1/-1}
+.flow{border-left:4px solid var(--steel);padding:4px 0 4px 16px;display:flex;flex-direction:column;gap:4px}
+.flow.info{border-color:var(--signal)}
+.rs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.rs div{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:10px;display:flex;flex-direction:column;gap:2px}
+.rs b{font-family:var(--display);font-size:1.3rem;color:var(--steel)}
+
+/* Reportagen */
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{border:2px solid var(--line);background:var(--surface);color:var(--fg);padding:10px 14px;border-radius:6px;text-align:left;display:flex;flex-direction:column;gap:2px}
+.tab[aria-selected="true"]{border-color:var(--steel);box-shadow:inset 0 -4px 0 var(--steel)}
+.tab small{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.rep{display:flex;flex-direction:column;gap:18px}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px;display:flex;flex-direction:column;gap:4px}
+.fact .big{font-family:var(--display);font-weight:800;font-size:2.2rem;line-height:1;color:var(--steel);font-variant-numeric:tabular-nums}
+.bar{display:grid;grid-template-columns:52px 1fr 110px;gap:10px;align-items:center;font-variant-numeric:tabular-nums}
+.bar span:first-child{font-family:var(--mono);font-size:.85rem}
+.bar .b{height:22px;background:var(--soft);border-radius:3px;overflow:hidden}
+.bar .b i{display:block;height:100%;background:var(--steel)}
+.bar .b i.hi{background:var(--signal)}
+.techs{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.techs details{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 16px}
+.techs summary{font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:8px}
+.techs summary::after{content:"+";font-family:var(--mono);color:var(--muted)}
+.techs details[open] summary::after{content:"–"}
+.techs details p{margin-top:8px}
+.techs .plus{margin-top:8px;font-size:.92rem;color:var(--good);font-weight:700}
+
+/* Fallbeispiel */
+.line{display:flex;gap:4px;align-items:flex-end;overflow-x:auto;padding:10px 0}
+.car{flex:0 0 auto;width:62px;height:34px;border-radius:6px 14px 4px 4px;background:var(--steel);position:relative}
+.car.gap{background:transparent;border:2px dashed var(--bad)}
+.car::after{content:"";position:absolute;bottom:-6px;left:8px;width:12px;height:12px;border-radius:50%;background:var(--fg);box-shadow:32px 0 0 var(--fg)}
+.car.gap::after{display:none}
+.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.choice{border:2px solid var(--line);background:var(--surface);color:var(--fg);border-radius:6px;padding:12px;text-align:left;display:flex;flex-direction:column;gap:2px}
+.choice small{color:var(--muted)}
+.choice.sel{border-color:var(--steel);box-shadow:inset 4px 0 0 var(--steel)}
+.result{border-radius:6px;padding:14px 16px;background:var(--soft)}
+
+/* Störungen */
+.sim{display:grid;grid-template-columns:1fr 1.1fr;gap:20px}
+.sim>*{min-width:0}
+.toggles{display:grid;gap:8px}
+.tg{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:6px;padding:8px 12px;background:var(--surface);cursor:pointer}
+.tg input{width:18px;height:18px;accent-color:var(--bad)}
+.tg span:last-child{margin-left:auto;font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+.road{position:relative;height:70px;background:var(--soft);border-radius:6px;overflow:hidden}
+.road .lane{position:absolute;left:12px;right:12px;top:34px;border-top:3px dashed var(--line)}
+.road .truck{position:absolute;top:18px;left:12px;font-size:0;width:44px;height:26px;background:var(--steel);border-radius:3px 8px 3px 3px;transition:left .6s}
+.road .flag{position:absolute;right:10px;top:12px;font-family:var(--mono);font-size:.75rem}
+.road .x{position:absolute;top:28px;width:14px;height:14px;background:var(--bad);transform:rotate(45deg);border-radius:2px}
+.meter{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-variant-numeric:tabular-nums}
+.meter b{font-family:var(--display);font-size:1.6rem}
+.status{padding:12px 14px;border-radius:6px;font-weight:700}
+.status.ok{background:color-mix(in srgb,var(--good) 15%,var(--surface))}
+.status.no{background:color-mix(in srgb,var(--bad) 15%,var(--surface))}
+input[type=range]{width:100%;accent-color:var(--steel)}
+
+/* Lösungsansätze */
+.solgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.sol{border:2px solid var(--line);background:var(--surface);color:var(--fg);border-radius:6px;padding:12px;text-align:left;display:flex;flex-direction:column;gap:4px}
+.sol[aria-selected="true"]{border-color:var(--steel);background:var(--steel);color:var(--bg)}
+.sol[aria-selected="true"] .label{color:var(--bg)}
+.day{display:grid;grid-template-columns:110px 1fr;gap:8px;align-items:center}
+.day .h{display:grid;grid-template-columns:repeat(24,1fr);height:24px;border-radius:3px;overflow:hidden;border:1px solid var(--line)}
+.day .h i{display:block}
+.drive{background:var(--steel)} .pause{background:var(--signal)} .rest{background:var(--soft)} .night{background:var(--good)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.85rem}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.legend i{width:12px;height:12px;border-radius:2px;display:inline-block}
+.platoon{position:relative;height:60px;background:var(--soft);border-radius:6px;overflow:hidden}
+.platoon .t{position:absolute;top:18px;height:24px;width:70px;background:var(--steel);border-radius:3px 9px 3px 3px;transition:left .8s}
+.platoon .t.lead{background:var(--signal)}
+.platoon .wind{position:absolute;top:24px;height:12px;background:repeating-linear-gradient(90deg,var(--line) 0 6px,transparent 6px 12px);transition:all .8s}
+.netz{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.netz span{border:1px solid var(--line);border-radius:99px;padding:4px 12px;background:var(--surface)}
+
+/* Sortierspiel */
+.sort{display:flex;flex-direction:column;gap:8px}
+.st{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:8px 12px}
+.st.right{border-color:var(--good)} .st.wrong{border-color:var(--bad)}
+.st .r{grid-column:1/-1;font-size:.88rem}
+
+/* Routen */
+.routewrap{display:grid;grid-template-columns:1.2fr 1fr;gap:20px}
+.routewrap>*{min-width:0}
+#routeSvg{width:100%;height:auto;background:var(--soft);border-radius:6px;touch-action:manipulation}
+#routeSvg .stopc{cursor:pointer}
+.bigno{font-family:var(--display);font-size:2.4rem;font-weight:800;line-height:1;color:var(--steel);font-variant-numeric:tabular-nums;word-break:break-all}
+
+/* Schwarm */
+#ants{width:100%;height:auto;background:var(--soft);border-radius:6px;display:block}
+
+/* Blockchain */
+.bsteps{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.bstep{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.bstep b{font-family:var(--mono);color:var(--chain)}
+.chain{display:flex;gap:0;overflow-x:auto;padding-bottom:6px;align-items:stretch}
+.blk{flex:0 0 200px;border:2px solid var(--chain);border-radius:6px;background:var(--surface);padding:12px;display:flex;flex-direction:column;gap:6px}
+.blk.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 8%,var(--surface))}
+.blk textarea{width:100%;min-height:58px;resize:vertical;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--fg);padding:6px;font-size:.9rem;box-sizing:border-box}
+.blk code{font-family:var(--mono);font-size:.78rem;word-break:break-all}
+.link{flex:0 0 26px;align-self:center;height:4px;background:var(--chain)}
+.link.bad{background:var(--bad)}
+.nodes{display:flex;gap:8px;flex-wrap:wrap}
+.node{border:1px solid var(--line);border-radius:6px;padding:8px 12px;background:var(--surface);display:flex;gap:8px;align-items:center}
+.kc{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.kc div{border-top:4px solid var(--chain);background:var(--surface);border-radius:0 0 6px 6px;padding:12px;display:flex;flex-direction:column;gap:4px}
+.usecases{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.uc{border:2px solid var(--line);background:var(--surface);color:var(--fg);border-radius:6px;padding:10px;text-align:left}
+.uc[aria-selected="true"]{border-color:var(--chain);box-shadow:inset 0 -4px 0 var(--chain)}
+.cond{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.lamp{width:14px;height:14px;border-radius:50%;background:var(--line);display:inline-block}
+.lamp.on{background:var(--good)}
+.lamp.off{background:var(--bad)}
+.hurdle{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.hurdle div{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:4px;font-size:.92rem}
+.hurdle b{font-family:var(--display);font-size:1.1rem}
+
+/* Optimierung */
+.cycle{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;position:relative}
+.cycle div{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:4px}
+.cycle b{font-family:var(--display);font-size:1.3rem}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:.95rem}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
+tr:last-child td{border-bottom:0}
+
+/* Waage */
+.scale{display:flex;flex-direction:column;align-items:center;gap:0}
+.beam{width:min(420px,100%);height:8px;background:var(--fg);border-radius:4px;transition:transform .5s;transform-origin:center}
+.post{width:8px;height:60px;background:var(--fg)}
+.foot{width:120px;height:10px;background:var(--fg);border-radius:4px}
+.args{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.args>div{display:flex;flex-direction:column;gap:6px;min-width:0}
+.arg{display:flex;justify-content:space-between;gap:8px;align-items:center;border:1px solid var(--line);border-radius:6px;padding:8px 10px;background:var(--surface);color:var(--fg);text-align:left}
+.arg .w{font-family:var(--mono);letter-spacing:2px;white-space:nowrap}
+.arg.c .w{color:var(--good)} .arg.r .w{color:var(--bad)}
+textarea.fazit{width:100%;min-height:110px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--fg);padding:10px;box-sizing:border-box}
+
+/* Vorteile */
+.adv{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.card{perspective:800px;border:0;background:none;padding:0;height:190px;color:var(--fg)}
+.card .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.card.flip .in{transform:rotateY(180deg)}
+.card .f,.card .b{position:absolute;inset:0;backface-visibility:hidden;border-radius:6px;padding:14px;display:flex;flex-direction:column;justify-content:space-between;text-align:left}
+.card .f{background:var(--steel);color:var(--bg)}
+.card .f h3{font-size:1.7rem}
+.card .f small{font-family:var(--mono);font-size:.72rem;opacity:.8}
+.card .b{background:var(--surface);border:2px solid var(--steel);transform:rotateY(180deg);font-size:.92rem;line-height:1.45;justify-content:flex-start}
+
+/* Quiz */
+.quiz{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:22px;display:flex;flex-direction:column;gap:14px}
+.opts{display:grid;gap:8px}
+.opt{border:2px solid var(--line);background:var(--bg);color:var(--fg);padding:10px 14px;border-radius:6px;text-align:left}
+.opt.okk{border-color:var(--good);background:color-mix(in srgb,var(--good) 14%,var(--bg))}
+.opt.nok{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--bg))}
+.fb{min-height:1.6em}
+.qtop{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+footer{font-size:.88rem;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+
+@media (max-width:860px){
+  .bsteps{grid-template-columns:repeat(3,1fr)}
+  .usecases,.hurdle{grid-template-columns:repeat(2,1fr)}
+  .kc,.solgrid,.cycle{grid-template-columns:repeat(2,1fr)}
+  .rs{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width:760px){
+  .panel,.grid2,.techs,.sim,.routewrap,.args,.choices{grid-template-columns:1fr}
+  .grid3{grid-template-columns:1fr}
+  .adv{grid-template-columns:repeat(2,1fr)}
+  .bar{grid-template-columns:44px 1fr 90px}
+  .day{grid-template-columns:1fr}
+}
+@media (max-width:480px){
+  .bsteps,.kc,.cycle,.rs{grid-template-columns:repeat(2,1fr)}
+  .usecases,.hurdle,.solgrid{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+
+<div class="chapters">
+  <nav id="chapnav" aria-label="Kapitel">
+    <a href="#start"><span>00</span>Start</a>
+    <a href="#grundlagen"><span>01</span>Grundlagen</a>
+    <a href="#praxis"><span>02</span>Praxis</a>
+    <a href="#koffer"><span>03</span>Teile im Koffer</a>
+    <a href="#stoerungen"><span>04</span>Störungen</a>
+    <a href="#loesungen"><span>05</span>Lösungsansätze</a>
+    <a href="#cluster"><span>06</span>Cluster</a>
+    <a href="#routen"><span>07</span>Routenplanung</a>
+    <a href="#schwarm"><span>08</span>Schwarm</a>
+    <a href="#blockchain"><span>09</span>Blockchain</a>
+    <a href="#optimierung"><span>10</span>Optimierung</a>
+    <a href="#digital"><span>11</span>Digitalisierung</a>
+    <a href="#quiz"><span>12</span>Quiz</a>
+  </nav>
+</div>
+
+<header class="hero" id="start">
+  <div class="tape" aria-hidden="true"></div>
+  <span class="label">Lernpfad · Wirtschaft &amp; Technik</span>
+  <h1>Die Paketreise</h1>
+  <p class="lead">Du klickst auf „Jetzt kaufen“ und am nächsten Tag klingelt es an der Tür. Dazwischen arbeiten Menschen, Maschinen und Software Hand in Hand. Und sie werden ständig besser: Jeder Schritt der Logistik wird gemessen, hinterfragt und optimiert. Auf dieser Seite lernst du, wie das funktioniert, wo es hakt und welche Ideen die Logistik von morgen prägen.</p>
+  <div class="label-card" aria-label="Beispiel-Paketetikett">
+    <div class="barcode" aria-hidden="true"></div>
+    <span class="label">Sendungsnummer</span>
+    <b>00340 4344 2019 7781 03</b>
+  </div>
+  <span class="label">Deine Aufgaben und wo du sie bearbeitest</span>
+  <div class="map">
+    <a href="#koffer"><span class="label">Aufgabe 1</span><b>Warum Autoteile im Koffer reisen</b></a>
+    <a href="#stoerungen"><span class="label">Aufgabe 2</span><b>Ursachen für Störungen</b></a>
+    <a href="#loesungen"><span class="label">Aufgabe 3 · M1</span><b>Ansätze für einen besseren Fluss</b></a>
+    <a href="#cluster"><span class="label">Aufgabe 4 · M1</span><b>Clusterbildung: Chancen und Risiken</b></a>
+    <a href="#routen"><span class="label">Aufgabe 5 · M2</span><b>Warum Routenplanung so aufwendig ist</b></a>
+    <a href="#schwarm"><span class="label">Aufgabe 6 · M1, M2</span><b>Lkw mit Schwarmintelligenz</b></a>
+    <a href="#digital"><span class="label">Aufgabe 7</span><b>Digitalisierung diskutieren</b></a>
+    <a href="#blockchain"><span class="label">Zusatz</span><b>Blockchain in der Logistik</b></a>
+  </div>
+</header>
+
+<!-- 01 GRUNDLAGEN -->
+<section id="grundlagen">
+  <div class="head">
+    <span class="label">Kapitel 01 · Grundlagen</span>
+    <h2>Wie funktioniert Logistik heute?</h2>
+    <p><strong>Logistik</strong> plant, steuert und kontrolliert den Weg von Waren und Informationen, vom Rohstoff bis zur Kundin. Das Ziel fassen Fachleute in den „6 R der Logistik“ zusammen:</p>
+  </div>
+  <div class="rs">
+    <div><b>Ware</b><span class="note">die richtige</span></div>
+    <div><b>Menge</b><span class="note">die richtige</span></div>
+    <div><b>Zeit</b><span class="note">zur richtigen</span></div>
+    <div><b>Ort</b><span class="note">am richtigen</span></div>
+    <div><b>Qualität</b><span class="note">in der richtigen</span></div>
+    <div><b>Kosten</b><span class="note">zu den richtigen</span></div>
+  </div>
+  <p>Begleite ein Paar Turnschuhe auf seinem Weg zu dir. Klicke auf die Stationen. Achte darauf, wie an jeder Station Technik eingesetzt wird, um den Ablauf zu verbessern.</p>
+  <div class="belt" role="tablist" aria-label="Stationen der Lieferkette" id="belt"></div>
+  <div class="track" aria-hidden="true"><i id="prog"></i></div>
+  <div class="panel" id="panel" role="tabpanel" aria-live="polite"></div>
+  <div class="grid2">
+    <div class="flow"><span class="label">Warenfluss</span><h3>Die Ware bewegt sich</h3><p>Die Schuhe reisen physisch von der Fabrik bis zu deiner Haustür, per Schiff, Bahn, Lkw und Lieferwagen.</p></div>
+    <div class="flow info"><span class="label">Informationsfluss</span><h3>Die Daten reisen mit</h3><p>Wer hat bestellt? Wo ist das Paket? Wie viele Paare sind noch auf Lager? Wenn der Informationsfluss stockt, stockt bald auch der Warenfluss.</p></div>
+  </div>
+</section>
+
+<!-- 02 PRAXIS -->
+<section id="praxis">
+  <div class="head">
+    <span class="label">Kapitel 02 · Aktuelle Beispiele</span>
+    <h2>Logistik in der Praxis</h2>
+    <p>Zwei ntv-Reportagen zeigen, wie Unternehmen in Deutschland die Paketflut bewältigen. Wähle eine Reportage aus.</p>
+  </div>
+  <div class="tabs" role="tablist" aria-label="Reportagen">
+    <button class="tab" role="tab" aria-selected="true" data-rep="r1" id="tab-r1"><small>ntv · 2025</small>Bestellt, verpackt, geliefert</button>
+    <button class="tab" role="tab" aria-selected="false" data-rep="r2" id="tab-r2"><small>ntv · 2021</small>Vom Klick zur Klingel</button>
+  </div>
+  <div class="rep" id="r1" role="tabpanel" aria-labelledby="tab-r1">
+    <h3>Lagerlogistik der Zukunft</h3>
+    <p>Seit der Corona-Pandemie kaufen viele Menschen in Deutschland lieber online ein, und das ist so geblieben. Kundinnen und Kunden erwarten niedrige Preise, gute Qualität und eine Lieferung oft schon innerhalb von 24 Stunden. Spezialisierte Logistikunternehmen betreiben deshalb riesige Lager für Online-Händler und erledigen dort alles, vom Einlagern bis zur Retoure.</p>
+    <div class="box" aria-label="Paketmenge in Deutschland">
+      <span class="label">Versendete Pakete in Deutschland</span>
+      <div class="bar"><span>2021</span><div class="b"><i style="width:90%"></i></div><span>ca. 4,5 Mrd.</span></div>
+      <div class="bar"><span>2024</span><div class="b"><i class="hi" style="width:100%"></i></div><span>ca. 5 Mrd.</span></div>
+      <span class="note">Zahlen laut Sendungsbeschreibung von ntv. Rechne nach: Wie viele Pakete sind das pro Tag?</span>
+    </div>
+    <div class="grid3">
+      <div class="fact"><span class="big">100.000</span><span>Päckchen können in Spitzenzeiten ein einziges Lager an einem Tag verlassen.</span></div>
+      <div class="fact"><span class="big">2×</span><span>An manchen Standorten fassen Menschen ein Paket nur zweimal an: beim Kommissionieren und beim Verladen in den Lkw.</span></div>
+      <div class="fact"><span class="big">24 h</span><span>So schnell erwarten viele Kundinnen und Kunden heute ihre Bestellung.</span></div>
+    </div>
+    <span class="label">Technik im Lager · zum Aufklappen</span>
+    <div class="techs">
+      <details><summary>Automatisierung</summary><p>Förderbänder, Sortieranlagen und automatische Hochregallager transportieren Waren ohne menschliche Hilfe durch das Gebäude.</p><p class="plus">Optimiert: Durchsatz, also Pakete pro Stunde</p></details>
+      <details><summary>Roboter</summary><p>Roboter bringen Regale oder Behälter direkt zum Arbeitsplatz. Mitarbeitende müssen nicht mehr kilometerweit durch die Halle laufen („Ware zur Person“).</p><p class="plus">Optimiert: Laufwege und körperliche Belastung</p></details>
+      <details><summary>Lagersoftware</summary><p>Ein Programm weiß jederzeit, wo jeder Artikel liegt, plant die Reihenfolge der Aufträge und meldet, wenn etwas nachbestellt werden muss.</p><p class="plus">Optimiert: Fehlerquote und Prozesssicherheit</p></details>
+      <details><summary>Retouren-Verarbeitung</summary><p>Zurückgeschickte Ware wird geprüft, neu verpackt und wieder eingelagert, damit sie erneut verkauft werden kann.</p><p class="plus">Optimiert: weniger Abfall, weniger Verlust</p></details>
+    </div>
+    <div class="task"><span class="label">Denkaufgabe</span><p>Die Reportage zeigt, wie Mensch und Maschine zusammenarbeiten. Welche Aufgaben im Lager kann eine Maschine gut übernehmen, und wo braucht es weiterhin Menschen? Begründe deine Antwort.</p></div>
+    <p><a href="https://www.youtube.com/watch?v=1YGbnRXPhV4" target="_blank" rel="noopener">Reportage ansehen</a></p>
+  </div>
+  <div class="rep" id="r2" role="tabpanel" aria-labelledby="tab-r2" hidden>
+    <h3>Paketlogistik in Deutschland</h3>
+    <p>Ein einziger Klick auf „Jetzt bestellen“ setzt im Hintergrund eine ausgeklügelte Technik in Gang. Die Reportage verfolgt eine Bestellung von Anfang bis Ende: von gigantischen Lagern über Paketzentren bis zu einem jungen Start-up. Sie fragt, wie Online-Händler den Versand am nächsten Tag schaffen und welche Rolle Roboter dabei spielen.</p>
+    <div class="grid3">
+      <div class="fact"><span class="big">A → Z</span><span>Der komplette Weg einer Bestellung, vom Klick bis zur Klingel.</span></div>
+      <div class="fact"><span class="big">+1 Tag</span><span>Versand am nächsten Tag ist für viele Händler heute Standard.</span></div>
+      <div class="fact"><span class="big">Start-up</span><span>Auch junge Firmen entwickeln neue Ideen für die Logistik.</span></div>
+    </div>
+    <span class="label">Technik im Paketnetz · zum Aufklappen</span>
+    <div class="techs">
+      <details><summary>Scannen &amp; Tracking</summary><p>Jedes Paket hat einen Barcode. An jeder Station wird es gescannt, so wissen Absender und Empfänger immer, wo es gerade ist.</p><p class="plus">Optimiert: Transparenz, weniger verlorene Pakete</p></details>
+      <details><summary>Sortierzentren</summary><p>Riesige Anlagen lesen die Adresse automatisch und leiten Pakete auf Förderbändern in die richtige Richtung, rund um die Uhr.</p><p class="plus">Optimiert: Geschwindigkeit</p></details>
+      <details><summary>Routenplanung</summary><p>Software berechnet für jedes Lieferfahrzeug die beste Reihenfolge der Adressen. Mehr dazu in Kapitel 07.</p><p class="plus">Optimiert: Kilometer, Zeit, CO₂</p></details>
+      <details><summary>Letzte Meile</summary><p>Das letzte Stück bis zur Haustür ist das teuerste. Packstationen, Paketshops, Lastenräder und Ideen von Start-ups sollen es einfacher machen.</p><p class="plus">Optimiert: weniger vergebliche Zustellversuche</p></details>
+    </div>
+    <div class="task"><span class="label">Denkaufgabe</span><p>Verfolge eine eigene Bestellung mit der Sendungsverfolgung. Notiere jede Station mit Uhrzeit. Wie lange war das Paket insgesamt unterwegs, und wo lag es am längsten?</p></div>
+  </div>
+</section>
+
+<!-- 03 KOFFER -->
+<section id="koffer">
+  <div class="head">
+    <div class="kicker"><span class="label">Kapitel 03</span><span class="badge">Aufgabe 1</span></div>
+    <h2>Autoteile im Reisekoffer</h2>
+    <p>Im Einleitungstext eures Materials griffen zwei Autohersteller zu einer ungewöhnlichen Maßnahme: Dringend benötigte Bauteile wurden in gewöhnlichen Reisekoffern mit einem normalen Passagierflugzeug transportiert. Das ist teuer und umständlich. Warum lohnt es sich trotzdem?</p>
+  </div>
+  <div class="box">
+    <span class="label">So läuft ein Autowerk: Fließfertigung</span>
+    <p>Die Autos durchlaufen das Werk Schritt für Schritt auf einem Band. Jede Station baut ein Teil ein. Die Teile kommen <strong>just in time</strong>, also genau dann, wenn sie gebraucht werden. Große Lager gibt es kaum, das spart Platz und Geld. Klicke auf „Teil fehlt“ und schau, was passiert.</p>
+    <div class="line" id="line" aria-label="Fertigungsband"></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn" id="missBtn">Teil fehlt</button>
+      <button class="btn" id="fixBtn">Teil ist da</button>
+    </div>
+    <p id="lineTxt" class="muted" aria-live="polite">Das Band läuft. Alle Teile sind rechtzeitig da.</p>
+  </div>
+  <div class="box">
+    <span class="label">Entscheide selbst</span>
+    <h3>Das Lager reicht nur noch für 20 Stunden. Wie holst du die Teile?</h3>
+    <div class="choices" id="choices"></div>
+    <div class="result" id="choiceRes" aria-live="polite">Wähle eine Möglichkeit.</div>
+    <p class="note">Rechenbeispiel mit erfundenen, vereinfachten Zahlen. Es geht um das Verhältnis der Kosten, nicht um echte Preise.</p>
+  </div>
+  <details class="help"><summary>Lösungshilfe zu Aufgabe 1</summary><div class="in">
+    <p>Die Autoproduktion ist stark automatisiert und arbeitet als Fließfertigung. Eine Störung an einer Stelle trifft das ganze System, im schlimmsten Fall steht die gesamte Produktion still. Fehlt ein Bauteil, kann man ein Auto nicht einfach vom Band nehmen und später wieder einfügen. Ein nachträglicher Einbau geht meist nur in Handarbeit und ist teuer.</p>
+    <p>Weil die Vorräte klein sind (Just-in-time), steht das Band schnell still, wenn Teile ausgehen. Offenbar gab es keine andere Transportmöglichkeit, die rechtzeitig verfügbar war. Der Flug im Reisekoffer war teuer, aber ein Stillstand der Produktion hätte durch ausfallende Umsätze ein Vielfaches gekostet.</p>
+  </div></details>
+</section>
+
+<!-- 04 STÖRUNGEN -->
+<section id="stoerungen">
+  <div class="head">
+    <div class="kicker"><span class="label">Kapitel 04</span><span class="badge">Aufgabe 2</span></div>
+    <h2>Was den Logistikfluss stört</h2>
+    <p>Die Corona-Pandemie war eine weltweit einmalige Störung. Doch auch im Alltag gibt es viele Ursachen für Verspätungen. Ein Lkw bringt Bauteile vom Zulieferer ins Autowerk. Planmäßig dauert die Fahrt 8 Stunden. Schalte Störungen ein und stelle ein, wie lange der Vorrat im Werk reicht.</p>
+  </div>
+  <div class="sim">
+    <div class="toggles" id="toggles"></div>
+    <div class="box">
+      <div class="road" aria-hidden="true"><div class="lane"></div><div id="xs"></div><div class="truck" id="truck"></div><span class="flag">Werk</span></div>
+      <div class="meter">
+        <span class="label">Fahrzeit</span><b id="tt">8 h</b>
+        <span class="label">Verspätung</span><b id="delay">0 h</b>
+      </div>
+      <label for="stock" class="label">Vorrat im Werk reicht für <span id="stockV">12</span> Stunden</label>
+      <input type="range" id="stock" min="2" max="48" value="12">
+      <div class="status ok" id="stat" aria-live="polite">Die Teile kommen rechtzeitig an.</div>
+      <p class="note">Die Verzögerungen sind Beispielwerte. In der Realität schwanken sie stark.</p>
+    </div>
+  </div>
+  <div class="task"><span class="label">Überlege</span><p>Welche Störungen kann ein Unternehmen vorhersehen, welche nicht? Welche Rolle spielt die Größe des Vorrats, und warum halten Firmen ihn trotzdem klein?</p></div>
+  <details class="help"><summary>Lösungshilfe zu Aufgabe 2</summary><div class="in">
+    <p>Neben einer Pandemie gibt es viele weitere Ursachen für Störungen:</p>
+    <ul>
+      <li>Baustellen und Unfälle führen zu Staus und Verzögerungen.</li>
+      <li>Streiks, zum Beispiel bei Bahn, Häfen oder Speditionen.</li>
+      <li>Grenzkontrollen und Zollkontrollen.</li>
+      <li>Naturereignisse: Stürme, Unwetter, Schneefall, umstürzende Bäume, Orkanböen.</li>
+      <li>Protektionismus: Staaten schützen ihre Wirtschaft mit Zöllen und Handelsbeschränkungen und behindern so den internationalen Warenhandel.</li>
+    </ul>
+  </div></details>
+</section>
+
+<!-- 05 LÖSUNGEN -->
+<section id="loesungen">
+  <div class="head">
+    <div class="kicker"><span class="label">Kapitel 05</span><span class="badge">Aufgabe 3 · M1</span></div>
+    <h2>Ansätze für einen besseren Logistikfluss</h2>
+    <p>Material M1 stellt vier Ideen vor, wie Störungen seltener werden oder schneller behoben werden können. Wähle einen Ansatz aus.</p>
+  </div>
+  <div class="solgrid" role="tablist" aria-label="Lösungsansätze" id="solgrid">
+    <button class="sol" role="tab" aria-selected="true" data-s="s1"><span class="label">Ansatz 1</span><b>Digitale Vernetzung</b></button>
+    <button class="sol" role="tab" aria-selected="false" data-s="s2"><span class="label">Ansatz 2</span><b>Clusterbildung</b></button>
+    <button class="sol" role="tab" aria-selected="false" data-s="s3"><span class="label">Ansatz 3</span><b>Autonomer Lkw</b></button>
+    <button class="sol" role="tab" aria-selected="false" data-s="s4"><span class="label">Ansatz 4</span><b>Platooning</b></button>
+  </div>
+
+  <div class="box solp" id="s1" role="tabpanel">
+    <h3>Digitale Vernetzung</h3>
+    <p>Kunden, Hersteller, Zulieferer und Logistikdienstleister sind über das Internet verbunden, manchmal sogar über eine gemeinsame Software (ERP- oder Logistiksoftware). Alle sehen dieselben Daten zur gleichen Zeit.</p>
+    <div class="netz" aria-label="Beteiligte im Netzwerk"><span>Kunde</span><span>Hersteller</span><span>Zulieferer</span><span>Spedition</span><span>Lager</span><span>Gemeinsame Software</span></div>
+    <div class="grid2">
+      <div class="flow"><span class="label">Vorher</span><p>Informationen laufen per Telefon, E-Mail und Papier von einem zum nächsten. Eine Verspätung erfährt das Werk erst, wenn der Lkw nicht kommt.</p></div>
+      <div class="flow info"><span class="label">Nachher</span><p>Steht der Lkw im Stau, sehen es alle sofort. Das Werk kann umplanen, der Zulieferer einen Ersatz schicken.</p></div>
+    </div>
+    <p class="ok"><strong>So verbessert es den Fluss:</strong> Störungen werden schnell erkannt, alle werden informiert und können gemeinsam eine Lösung finden.</p>
+  </div>
+
+  <div class="box solp" id="s2" role="tabpanel" hidden>
+    <h3>Clusterbildung</h3>
+    <p>Zulieferbetriebe siedeln sich rund um einen wichtigen Hersteller an, zum Beispiel rund um ein Autowerk. Es entsteht ein Industriepark mit kurzen Wegen.</p>
+    <svg viewBox="0 0 400 170" role="img" aria-label="Cluster: Zulieferer rund um ein Autowerk" style="max-width:420px;width:100%">
+      <g stroke="var(--line)" stroke-width="2">
+        <line x1="200" y1="85" x2="80" y2="30"/><line x1="200" y1="85" x2="320" y2="30"/><line x1="200" y1="85" x2="60" y2="120"/><line x1="200" y1="85" x2="340" y2="125"/><line x1="200" y1="85" x2="200" y2="155"/>
+      </g>
+      <rect x="160" y="62" width="80" height="46" rx="4" fill="var(--steel)"/>
+      <text x="200" y="90" text-anchor="middle" fill="var(--bg)" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-size="16" font-weight="700">AUTOWERK</text>
+      <g fill="var(--surface)" stroke="var(--steel)" stroke-width="2">
+        <rect x="45" y="15" width="70" height="28" rx="3"/><rect x="285" y="15" width="70" height="28" rx="3"/><rect x="20" y="106" width="80" height="28" rx="3"/><rect x="300" y="111" width="80" height="28" rx="3"/><rect x="165" y="140" width="70" height="26" rx="3"/>
+      </g>
+      <g fill="var(--fg)" font-size="11" text-anchor="middle" font-family="Atkinson Hyperlegible,sans-serif">
+        <text x="80" y="33">Sitze</text><text x="320" y="33">Reifen</text><text x="60" y="124">Elektronik</text><text x="340" y="129">Glas</text><text x="200" y="157">Lacke</text>
+      </g>
+    </svg>
+    <p class="ok"><strong>So verbessert es den Fluss:</strong> Kurze Lieferwege bedeuten weniger Störungen. Kleine Mengen können häufig geliefert werden, Sonderwünsche und Änderungen lassen sich schnell umsetzen. Chancen und Risiken untersuchst du in Kapitel 06.</p>
+  </div>
+
+  <div class="box solp" id="s3" role="tabpanel" hidden>
+    <h3>Autonom fahrender Lkw</h3>
+    <p>Ein selbstfahrender Lkw braucht keine Lenkzeiten und Ruhepausen wie ein Mensch. Er könnte theoretisch 24 Stunden am Tag fahren und Fahrten in die Nacht verlegen, wenn die Autobahnen frei sind.</p>
+    <span class="label">Ein Tag im Vergleich · 0 bis 24 Uhr</span>
+    <div class="day"><span>Fahrer/in</span><div class="h" id="dayH"></div></div>
+    <div class="day"><span>Autonomer Lkw</span><div class="h" id="dayA"></div></div>
+    <div class="legend"><span><i class="drive"></i>Fahren</span><span><i class="pause"></i>Pause</span><span><i class="rest"></i>Ruhezeit</span><span><i class="night"></i>Fahren bei freien Straßen (22–6 Uhr)</span></div>
+    <p class="note">Für Berufskraftfahrer gelten in der EU feste Regeln: in der Regel höchstens 9 Stunden Lenkzeit am Tag, nach 4,5 Stunden mindestens 45 Minuten Pause, dazu eine tägliche Ruhezeit.</p>
+    <p class="ok"><strong>So verbessert es den Fluss:</strong> Längere Einsatzzeiten, Fahrten in staufreien Zeitfenstern, weniger Verzögerungen.</p>
+  </div>
+
+  <div class="box solp" id="s4" role="tabpanel" hidden>
+    <h3>Platooning</h3>
+    <p>Mehrere Lkw schließen sich auf langen Strecken elektronisch zu einer Kolonne zusammen. Nur im ersten Lkw lenkt ein Mensch aktiv. Die folgenden Fahrzeuge halten automatisch denselben Abstand und dasselbe Tempo.</p>
+    <div class="platoon" id="platoon" aria-hidden="true"><div class="wind" id="wind"></div><div class="t" id="p3"></div><div class="t" id="p2"></div><div class="t lead" id="p1"></div></div>
+    <div><button class="btn" id="platBtn" aria-pressed="false">Platooning einschalten</button></div>
+    <p id="platTxt" aria-live="polite">Ohne Verbindung: Jeder Lkw fährt mit großem Sicherheitsabstand und eigenem Fahrer.</p>
+    <p class="ok"><strong>So verbessert es den Fluss:</strong> Die Fahrer in den folgenden Lkw werden entlastet. In Zukunft könnte eine ganze Kolonne von einer Person geführt werden. Durch den Windschatten sinkt außerdem der Kraftstoffverbrauch.</p>
+  </div>
+
+  <details class="help"><summary>Lösungshilfe zu Aufgabe 3</summary><div class="in">
+    <p><strong>Digitale Vernetzung:</strong> Kunden, Produzenten, Zulieferer und Logistikdienstleister sind über das Internet und eventuell eine gemeinsame ERP- oder Logistiksoftware verknüpft. Informationen werden sehr schnell ausgetauscht. Treten Störungen auf, werden sie schnell erkannt, alle Beteiligten informiert und gemeinsam Lösungen entwickelt.</p>
+    <p><strong>Clusterbildung:</strong> Zulieferer siedeln sich rund um einen wichtigen Hersteller an. Die räumliche Nähe ermöglicht kurze Lieferwege und vermeidet Störungen. Kleinere Mengen können geliefert und Sonderwünsche schnell umgesetzt werden.</p>
+    <p><strong>Autonomer Lkw:</strong> Er muss keine Lenkzeiten einhalten und könnte rund um die Uhr fahren. Fahrten lassen sich in günstige Zeitfenster legen, zum Beispiel 22 bis 6 Uhr, wenn die Straßen frei sind.</p>
+    <p><strong>Platooning:</strong> Mehrere Lkw bilden eine Kette, nur im ersten fährt ein Mensch aktiv. Die anderen folgen mit gleichem Abstand und Tempo. Das entlastet die Fahrer und könnte erlauben, eine Gruppe nur mit einem Fahrer zu führen.</p>
+  </div></details>
+</section>
+
+<!-- 06 CLUSTER -->
+<section id="cluster">
+  <div class="head">
+    <div class="kicker"><span class="label">Kapitel 06</span><span class="badge">Aufgabe 4 · M1</span></div>
+    <h2>Clusterbildung: Chance oder Risiko?</h2>
+    <p>Ordne jede Aussage zu. Ist sie eine Chance oder ein Risiko für die Unternehmen im Cluster?</p>
+  </div>
+  <div class="sort" id="sort"></div>
+  <p id="sortScore" class="label" aria-live="polite"></p>
+  <details class="help"><summary>Lösungshilfe zu Aufgabe 4</summary><div class="in">
+    <div class="grid2">
+      <div><h4 class="ok">Chancen</h4><ul><li>Kurze Wege zwischen Zulieferern und Hersteller</li><li>Dadurch geringes Risiko von Störungen</li><li>Kooperation mit Nachbarbetrieben, zum Beispiel Fahrten in einem Lkw bündeln</li><li>Austausch von Wissen und Erfahrung (Know-how)</li></ul></div>
+      <div><h4 class="no">Risiken</h4><ul><li>Abhängigkeit: Bekommt der zentrale Betrieb Probleme, droht der ganze Cluster zu zerfallen</li><li>Konkurrenz siedelt sich direkt nebenan an, der Wettbewerb steigt</li><li>Gewerbeflächen werden knapp, weil sich viele Betriebe ansiedeln</li></ul></div>
+    </div>
+  </div></details>
+</section>
+
+<!-- 07 ROUTEN -->
+<section id="routen">
+  <div class="head">
+    <div class="kicker"><span class="label">Kapitel 07</span><span class="badge">Aufgabe 5 · M2</span></div>
+    <h2>Warum die beste Route so schwer zu finden ist</h2>
+    <p>Ein Lieferwagen startet im Depot, muss sechs Kunden beliefern und wieder zurückkommen. Klicke die Kunden in der Reihenfolge an, in der du fahren würdest. Findest du die kürzeste Route?</p>
+  </div>
+  <div class="routewrap">
+    <svg id="routeSvg" viewBox="0 0 400 300" role="img" aria-label="Karte mit Depot und sechs Kunden"></svg>
+    <div class="box">
+      <div class="meter"><span class="label">Deine Strecke</span><b id="myKm">0 km</b><span class="label">Kürzeste Strecke</span><b id="bestKm">?</b></div>
+      <p id="routeTxt" aria-live="polite">Klicke auf den ersten Kunden.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="routeReset">Neu starten</button><button class="btn" id="routeBest">Beste Route zeigen</button></div>
+    </div>
+  </div>
+  <div class="box">
+    <span class="label">Wie viele Reihenfolgen gibt es?</span>
+    <label for="nStops">Anzahl der Kunden: <strong id="nV">6</strong></label>
+    <input type="range" id="nStops" min="3" max="25" value="6">
+    <div class="bigno" id="perm">720</div>
+    <p id="permTxt"></p>
+    <p class="note">Ein echter Paketbote fährt oft über 100 Adressen am Tag an. Rechner nutzen deshalb Näherungsverfahren (Heuristiken), die schnell eine sehr gute, aber nicht garantiert die allerbeste Route liefern.</p>
+  </div>
+  <details class="help"><summary>Lösungshilfe zu Aufgabe 5</summary><div class="in">
+    <ul>
+      <li>Viele Routen, besonders von Lieferdiensten und Paketzustellern, ändern sich täglich. Jeden Tag muss eine neue „optimale Route“ berechnet werden.</li>
+      <li>Zahlreiche Faktoren ändern sich kurzfristig und erschweren die Planung: Baustellen, Staus, Unfälle.</li>
+      <li>Die Zahl der möglichen Reihenfolgen ist riesig (bei n Zielen n! = 1 · 2 · 3 · … · n Möglichkeiten). Das erfordert eine enorme Zahl an Berechnungen.</li>
+      <li>Es gibt kein bekanntes Rechenverfahren, das bei vielen Zielen schnell garantiert das optimale Ergebnis liefert.</li>
+    </ul>
+  </div></details>
+</section>
+
+<!-- 08 SCHWARM -->
+<section id="schwarm">
+  <div class="head">
+    <div class="kicker"><span class="label">Kapitel 08</span><span class="badge">Aufgabe 6 · M1, M2</span></div>
+    <h2>Was Lkw von Ameisen lernen können</h2>
+    <p>Ameisen finden ohne Karte den kürzesten Weg zum Futter. Jede Ameise hinterlässt eine Duftspur (Pheromon). Auf dem kurzen Weg sind Ameisen schneller zurück, also wird die Spur dort schneller stärker, und immer mehr Ameisen folgen ihr. Kein einzelnes Tier plant, und trotzdem entsteht eine kluge Lösung: <strong>Schwarmintelligenz</strong>.</p>
+  </div>
+  <div class="box">
+    <canvas id="ants" width="800" height="300" aria-label="Simulation: Ameisen zwischen Nest und Futter auf zwei Wegen"></canvas>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn" id="antBlock" aria-pressed="false">Kurzen Weg sperren (Stau)</button>
+      <button class="btn" id="antReset">Neu starten</button>
+    </div>
+    <div class="meter"><span class="label">Kurzer Weg (oben)</span><b id="shareS">50 %</b><span class="label">Langer Weg (unten)</span><b id="shareL">50 %</b></div>
+  </div>
+  <div class="grid2">
+    <div class="flow"><span class="label">Ameise</span><p>Duftspur auf dem Weg · viele Tiere teilen ihr Wissen · eine verdunstende Spur zeigt, dass ein Weg nicht mehr genutzt wird.</p></div>
+    <div class="flow info"><span class="label">Vernetzter Lkw</span><p>GPS-Daten aller Fahrzeuge · Verkehrsfluss in Echtzeit · Stockungen werden erkannt, bevor ein Stau entsteht, und alle bekommen eine neue Route.</p></div>
+  </div>
+  <details class="help"><summary>Lösungshilfe zu Aufgabe 6</summary><div class="in">
+    <p>Ähnlich wie bei Insekten könnten GPS-Transponder die Fahrstrecken von Lkw und Pkw erfassen. So entsteht ein digitales Abbild des aktuellen Verkehrsflusses. Man erkennt jederzeit, wo Verkehr stockt oder sich eine Stockung anbahnt, und kann mit diesen Echtzeitdaten Alternativrouten berechnen.</p>
+    <p>Dazu kommen Erfahrungswerte: Auf welchen Strecken gibt es an welchen Tagen, zu welcher Uhrzeit und bei welchem Wetter wenig Störungen? Diese gesammelten „Spuren“ verbessern die Planung immer weiter.</p>
+  </div></details>
+</section>
+
+<!-- 09 BLOCKCHAIN -->
+<section id="blockchain">
+  <div class="head">
+    <div class="kicker"><span class="label">Kapitel 09</span><span class="badge">Zusatz</span></div>
+    <h2>Blockchain in der Logistik</h2>
+    <p>An einer Lieferung sind oft viele Firmen beteiligt: Hersteller, Reederei, Hafen, Zoll, Spedition, Bank, Kunde. Jede führt ihre eigenen Unterlagen, viele davon noch auf Papier. Das kostet Zeit, führt zu Fehlern, und oft weiß niemand genau, wo die Ware gerade ist. Außerdem fehlt Vertrauen: Wer garantiert, dass die Daten der anderen stimmen? Die Blockchain soll genau hier helfen.</p>
+  </div>
+
+  <div class="box">
+    <span class="label">Was ist eine Blockchain?</span>
+    <p>Eine Blockchain ist eine <strong>gemeinsame Datenbank</strong>, die nicht an einem Ort liegt, sondern bei allen Beteiligten gleichzeitig. Einträge werden zu Blöcken gebündelt und wie Glieder einer Kette verbunden. Ist ein Block einmal angehängt, lässt er sich nicht mehr unbemerkt ändern.</p>
+    <span class="label">So läuft eine Transaktion ab</span>
+    <div class="bsteps">
+      <div class="bstep"><b>1</b><span>Jemand meldet einen Vorgang, z. B. „Container verladen“.</span></div>
+      <div class="bstep"><b>2</b><span>Die Meldung geht an ein Netzwerk aus vielen Rechnern (Knoten).</span></div>
+      <div class="bstep"><b>3</b><span>Die Knoten prüfen, ob Vorgang und Absender gültig sind.</span></div>
+      <div class="bstep"><b>4</b><span>Geprüfte Vorgänge werden zu einem neuen Block gebündelt.</span></div>
+      <div class="bstep"><b>5</b><span>Der Block wird dauerhaft und unveränderlich an die Kette gehängt.</span></div>
+      <div class="bstep"><b>6</b><span>Der Vorgang ist abgeschlossen und für alle sichtbar.</span></div>
+    </div>
+  </div>
+
+  <span class="label">Die vier Grundbausteine</span>
+  <div class="kc">
+    <div><h4>Verteiltes Register</h4><span>Jeder Teilnehmer hat eine vollständige Kopie aller Daten. Es gibt eine gemeinsame Wahrheit.</span></div>
+    <div><h4>Verschlüsselung</h4><span>Kryptografie schützt die Daten. Jede Änderung bekommt einen Zeitstempel.</span></div>
+    <div><h4>Konsens</h4><span>Alle Teilnehmer bestätigen neue Einträge. Eine zentrale Kontrollstelle ist nicht nötig.</span></div>
+    <div><h4>Smart Contracts</h4><span>Kleine Programme führen sich selbst aus, sobald Bedingungen erfüllt sind.</span></div>
+  </div>
+
+  <div class="box">
+    <span class="label">Ausprobieren: Kann man die Kette fälschen?</span>
+    <p>Hier siehst du die Lieferkette eines Containers. Jeder Block hat eine Prüfsumme, die aus seinem Inhalt <em>und</em> der Prüfsumme des vorherigen Blocks berechnet wird. Ändere einen Text, zum Beispiel das Datum oder die Temperatur, und beobachte, was passiert.</p>
+    <div class="chain" id="chain"></div>
+    <div class="nodes" id="nodes"></div>
+    <p id="chainTxt" aria-live="polite"></p>
+    <div><button class="btn" id="chainReset">Zurücksetzen</button></div>
+    <p class="note">Vereinfachte Prüfsumme zur Veranschaulichung. Echte Blockchains nutzen kryptografische Hashfunktionen.</p>
+  </div>
+
+  <div class="box">
+    <span class="label">Ausprobieren: Ein Smart Contract bezahlt automatisch</span>
+    <p>Eine Palette mit Impfstoff ist mit Sensoren ausgestattet. Der Vertrag lautet: <em>Wenn die Ware angekommen ist, die Temperatur nie über 8 °C lag und der Empfänger sich ausgewiesen hat, wird die Rechnung sofort bezahlt.</em> Niemand muss Papiere prüfen.</p>
+    <div class="cond"><input type="checkbox" id="c1"><label for="c1">Palette meldet: angekommen</label><span class="lamp" id="l1"></span></div>
+    <div class="cond"><label for="c2">Höchste gemessene Temperatur: <strong id="tV">6</strong> °C</label><input type="range" id="c2" min="2" max="14" value="6" style="max-width:240px"><span class="lamp" id="l2"></span></div>
+    <div class="cond"><input type="checkbox" id="c3"><label for="c3">Identität des Empfängers bestätigt</label><span class="lamp" id="l3"></span></div>
+    <div class="status no" id="scRes" aria-live="polite">Zahlung wartet. Noch nicht alle Bedingungen erfüllt.</div>
+  </div>
+
+  <span class="label">Vorteile laut PwC-Studie „Blockchain in Logistics“</span>
+  <div class="grid2">
+    <div class="box"><h4>Mehr Transparenz und Rückverfolgbarkeit</h4><ul><li>Alle Beteiligten sehen dieselben Daten, von Anfang bis Ende der Lieferkette.</li><li>Die Herkunft einer Ware lässt sich lückenlos nachweisen.</li><li>Leistungen von Spediteuren und Lieferanten werden fälschungssicher dokumentiert.</li><li>Ereignisse und Standorte sind in Echtzeit sichtbar.</li></ul></div>
+    <div class="box"><h4>Sicherheit und Echtheit</h4><ul><li>Dokumente können sicher ausgetauscht und auf Echtheit geprüft werden.</li><li>Betrug fällt auf, weil nichts unbemerkt gelöscht oder geändert werden kann.</li><li>Regeln wie ein Ausweis bei Abholung oder Zustellung erschweren Diebstahl.</li></ul></div>
+    <div class="box"><h4>Weniger Aufwand</h4><ul><li>Zwischenhändler und Vermittler werden teilweise überflüssig.</li><li>Ware wird bei Abholung und Lieferung geprüft, das vermeidet Streit.</li><li>Zahlungen, Eigentumsübergang und Zollgebühren laufen automatisch über Smart Contracts.</li></ul></div>
+    <div class="box"><h4>Effizientere Abläufe</h4><ul><li>Fahrtenschreiber können Fahrdaten direkt in die Blockchain melden, Vorschriften werden leichter eingehalten.</li><li>Doppelte Arbeitsschritte und Prozessfehler fallen weg, das senkt die Kosten.</li><li>Automatisierung verringert menschliche Fehler und ist schneller als Handarbeit.</li></ul></div>
+  </div>
+
+  <span class="label">Anwendungsbeispiele · wähle eines aus</span>
+  <div class="usecases" role="tablist" id="ucTabs"></div>
+  <div class="box" id="ucBox" role="tabpanel" aria-live="polite"></div>
+
+  <span class="label">Warum nutzen es noch nicht alle? Die Hürden</span>
+  <div class="hurdle">
+    <div><b>Wissen</b><span>Viele verstehen die Technik noch nicht, es fehlen Fachkräfte. Firmen scheuen sich, Daten zu teilen.</span></div>
+    <div><b>Zusammenspiel</b><span>Es gibt viele Einzellösungen und keinen gemeinsamen Standard.</span></div>
+    <div><b>Leistung</b><span>Der Nutzen für den Warenfluss ist oft noch nicht direkt sichtbar.</span></div>
+    <div><b>Regeln</b><span>Klare Gesetze fehlen. Datenschutz verlangt löschbare Daten, die Blockchain ist aber unveränderlich.</span></div>
+    <div><b>Vermittler</b><span>Firmen, die heute von Zwischenschritten leben, könnten überflüssig werden.</span></div>
+  </div>
+  <div class="grid3">
+    <div class="fact"><span class="big">5 %</span><span>aller befragten Unternehmen hatten laut der PwC-Studie Blockchain bereits eingeführt.</span></div>
+    <div class="fact"><span class="big">27 %</span><span>der digitalen Vorreiter („Digital Champions“) nutzten sie bereits.</span></div>
+    <div class="fact"><span class="big">0</span><span>einheitlichen Branchenstandard gab es zum Zeitpunkt der Studie.</span></div>
+  </div>
+  <div class="task"><span class="label">Arbeitsauftrag</span><p>Prüfe mit dem Blockchain-Check der Studie: Für welchen Prozess aus dieser Seite lohnt sich eine Blockchain? Sie lohnt sich umso mehr, je mehr dieser Punkte zutreffen: Mehrere Parteien teilen Daten · mehrere Parteien ändern Daten · Einträge müssen überprüfbar sein · Vermittler machen es kompliziert · Zeit ist wichtig · die Vorgänge hängen voneinander ab.</p></div>
+</section>
+
+<!-- 10 OPTIMIERUNG -->
+<section id="optimierung">
+  <div class="head">
+    <span class="label">Kapitel 10 · Rundumblick</span>
+    <h2>Logistik ist nie fertig</h2>
+    <p>Keine Lieferkette ist perfekt. Unternehmen messen ständig, wo Zeit, Geld oder Material verloren gehen, und verbessern dann Schritt für Schritt. Dieser Kreislauf heißt <strong>kontinuierlicher Verbesserungsprozess</strong>. Er beginnt nach jeder Runde von vorn.</p>
+  </div>
+  <div class="cycle">
+    <div><span class="label">Schritt 1</span><b>Planen</b><span>Wo hakt es? Ziel festlegen, z. B. „Pakete 2 Stunden schneller sortieren“.</span></div>
+    <div><span class="label">Schritt 2</span><b>Umsetzen</b><span>Eine Verbesserung ausprobieren, z. B. neue Software oder Roboter.</span></div>
+    <div><span class="label">Schritt 3</span><b>Prüfen</b><span>Mit Daten messen: Hat es wirklich etwas gebracht?</span></div>
+    <div><span class="label">Schritt 4</span><b>Verbessern</b><span>Gutes übernehmen, Schwächen beheben. Dann beginnt der Kreislauf neu.</span></div>
+  </div>
+  <span class="label">Alles auf einen Blick: Was wird wo optimiert?</span>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Bereich</th><th>Typisches Problem</th><th>Optimierung</th><th>Kapitel</th></tr></thead>
+      <tbody>
+        <tr><td>Beschaffung</td><td>Teile fehlen, Band steht still</td><td>Just-in-time, digitale Vernetzung, Notfallpläne</td><td>03, 05</td></tr>
+        <tr><td>Standort</td><td>Lange Wege zu Zulieferern</td><td>Clusterbildung</td><td>05, 06</td></tr>
+        <tr><td>Transport</td><td>Staus, Lenkzeiten, hoher Verbrauch</td><td>Autonome Lkw, Platooning, Nachtfahrten</td><td>04, 05</td></tr>
+        <tr><td>Lager</td><td>Lange Laufwege, Fehler beim Packen</td><td>Roboter, Lagersoftware, Automatisierung</td><td>02</td></tr>
+        <tr><td>Zustellung</td><td>Viele Adressen, ständig neue Routen</td><td>Routenoptimierung, Schwarmintelligenz, Packstationen</td><td>07, 08</td></tr>
+        <tr><td>Dokumente und Zahlung</td><td>Papier, Misstrauen, doppelte Arbeit</td><td>Blockchain, Smart Contracts</td><td>09</td></tr>
+        <tr><td>Retouren</td><td>Ware wird weggeworfen</td><td>Prüfen, aufbereiten, wieder einlagern</td><td>02</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <span class="label">Die Vorteile moderner Logistik · Karte antippen</span>
+  <div class="adv" id="adv"></div>
+</section>
+
+<!-- 11 DIGITALISIERUNG -->
+<section id="digital">
+  <div class="head">
+    <div class="kicker"><span class="label">Kapitel 11</span><span class="badge">Aufgabe 7</span></div>
+    <h2>Digitalisierung: Chancen und Risiken abwägen</h2>
+    <p>Wie wichtig ist dir jedes Argument? Tippe auf ein Argument, um ihm 0 bis 3 Punkte zu geben. Die Waage zeigt, wohin deine Bewertung kippt. Schreibe dann dein begründetes Fazit.</p>
+  </div>
+  <div class="box">
+    <div class="scale" aria-hidden="true"><div class="beam" id="beam"></div><div class="post"></div><div class="foot"></div></div>
+    <p id="scaleTxt" style="text-align:center;max-width:none" aria-live="polite"></p>
+    <div class="args">
+      <div id="argC"><h4 class="ok">Chancen</h4></div>
+      <div id="argR"><h4 class="no">Risiken</h4></div>
+    </div>
+  </div>
+  <div class="box">
+    <label for="fazit" class="label">Mein Fazit</label>
+    <textarea class="fazit" id="fazit" placeholder="Ich bin der Meinung, dass … weil …"></textarea>
+    <p class="note">Dein Text bleibt nur in diesem Browser gespeichert.</p>
+  </div>
+  <details class="help"><summary>Lösungshilfe zu Aufgabe 7</summary><div class="in">
+    <div class="grid2">
+      <div><h4 class="ok">Chancen</h4><ul><li>Weniger Störungen</li><li>Optimierte Abläufe</li><li>Automatisierung von Tätigkeiten</li><li>Einsparung von Personal</li><li>Höhere Wettbewerbsfähigkeit</li><li>Höhere Verfügbarkeit</li><li>Entlastung der Umwelt durch bessere Auslastung und weniger Stockungen</li><li>Kosteneinsparungen</li></ul></div>
+      <div><h4 class="no">Risiken</h4><ul><li>Abhängigkeit von neuen Technologien</li><li>Eventuell hohe Kosten für Anschaffung und Betrieb</li><li>Verlust von Arbeitsplätzen in einer der wichtigsten Branchen Deutschlands</li><li>Fraglich, ob sich die Systeme für kleinere Unternehmen lohnen</li></ul></div>
+    </div>
+    <p>Bei einer Diskussion wird ein begründetes Fazit erwartet. Beachte: „Einsparung von Personal“ ist aus Sicht des Unternehmens eine Chance, aus Sicht der Beschäftigten ein Risiko.</p>
+  </div></details>
+</section>
+
+<!-- 12 QUIZ -->
+<section id="quiz">
+  <div class="head">
+    <span class="label">Kapitel 12 · Selbsttest</span>
+    <h2>Quiz: Bist du ein Logistikprofi?</h2>
+  </div>
+  <div class="quiz" id="quizbox"></div>
+</section>
+
+<footer>
+  <div class="tape" aria-hidden="true"></div>
+  <span>Quellen: ntv-Reportagen „Bestellt, verpackt, geliefert – Lagerlogistik der Zukunft“ (2025) und „Vom Klick zur Klingel – Paket-Logistik in Deutschland“ (2021) mit ihren Sendungsbeschreibungen; Aufgaben und Lösungsvorschläge des Schulbuchs (S. 37, M1, M2); PwC: „Blockchain in Logistics“.</span>
+</footer>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+
+/* Kapitelleiste */
+(function(){const links=[...document.querySelectorAll('#chapnav a')];const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+ if(!('IntersectionObserver' in window))return;
+ const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const i=secs.indexOf(e.target);links.forEach((l,j)=>l.classList.toggle('on',j===i));links[i].scrollIntoView({block:'nearest',inline:'nearest'})}})},{rootMargin:'-30% 0px -60% 0px'});
+ secs.forEach(s=>s&&io.observe(s));})();
+
+/* 01 Stationen */
+const ICON={
+ rohstoff:'<svg viewBox="0 0 24 24"><path d="M4 20h16M6 20V9l6-5 6 5v11"/><path d="M10 20v-6h4v6"/></svg>',
+ fabrik:'<svg viewBox="0 0 24 24"><path d="M3 20V10l5 3V10l5 3V6h4v14z"/><path d="M3 20h18"/></svg>',
+ schiff:'<svg viewBox="0 0 24 24"><path d="M3 15h18l-3 5H6z"/><rect x="6" y="9" width="5" height="6"/><rect x="11" y="6" width="6" height="9"/></svg>',
+ lager:'<svg viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13"/><path d="M7 21v-8h10v8M7 17h10"/></svg>',
+ pick:'<svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11"/><path d="M4 9l3-5h10l3 5M12 9v11"/></svg>',
+ lkw:'<svg viewBox="0 0 24 24"><path d="M2 6h12v10H2zM14 10h4l3 3v3h-7z"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>',
+ retour:'<svg viewBox="0 0 24 24"><path d="M9 7H4V2"/><path d="M4 7a9 9 0 1 1-1 6"/></svg>'
+};
+const STOPS=[
+ {k:'rohstoff',t:'Beschaffung',txt:'Der Hersteller kauft Rohstoffe wie Gummi, Stoff und Kleber ein, oft aus mehreren Ländern. Alles muss rechtzeitig in der Fabrik sein.',tech:['Bestellsysteme melden automatisch, wenn Material knapp wird','Just-in-time: Teile kommen genau dann, wenn sie gebraucht werden'],opt:'Wie klein darf der Vorrat sein, ohne dass die Produktion in Gefahr gerät?'},
+ {k:'fabrik',t:'Produktion',txt:'In der Fabrik werden die Schuhe hergestellt, geprüft und in Kartons verpackt. Jeder Karton bekommt ein Etikett mit Barcode.',tech:['Barcodes oder RFID-Chips machen jeden Karton eindeutig erkennbar','Prognosen mit KI schätzen, wie viele Paare gebraucht werden'],opt:'Wie viele Paare werden nächsten Monat wirklich gekauft?'},
+ {k:'schiff',t:'Transport',txt:'Die Kartons reisen in Containern per Schiff, Bahn und Lkw nach Europa. Ein Container passt auf alle drei Verkehrsmittel.',tech:['Genormte Container für den kombinierten Verkehr','GPS-Ortung zeigt jederzeit, wo der Container ist'],opt:'Welches Verkehrsmittel ist die beste Mischung aus Zeit, Kosten und CO₂?'},
+ {k:'lager',t:'Lagerung',txt:'Im Verteilzentrum werden die Schuhe eingelagert. Die Software merkt sich den genauen Platz, bis jemand sie bestellt.',tech:['Lagerverwaltungssoftware','Automatische Hochregallager und Roboter'],opt:'Wo liegen oft bestellte Artikel, damit die Wege kurz bleiben?'},
+ {k:'pick',t:'Kommissionierung',txt:'Nach deiner Bestellung wird dein Paar aus dem Regal geholt, verpackt und etikettiert. Oft passiert das innerhalb weniger Stunden.',tech:['Roboter bringen die Ware zum Packplatz','Scanner prüfen, ob der richtige Artikel im Karton ist'],opt:'Wie passen möglichst viele Pakete in einen Lkw, ohne Luft zu transportieren?'},
+ {k:'lkw',t:'Zustellung',txt:'Das Paket kommt ins Paketzentrum, wird sortiert und mit dem Lieferwagen zu dir, zur Packstation oder in einen Paketshop gebracht.',tech:['Automatische Sortieranlagen','Routenplanung und Sendungsverfolgung in Echtzeit'],opt:'In welcher Reihenfolge fährt der Bote seine 150 Adressen an?'},
+ {k:'retour',t:'Retoure',txt:'Passen die Schuhe nicht, schickst du sie zurück. Sie werden geprüft und, wenn alles in Ordnung ist, wieder eingelagert.',tech:['Retourenlabel per App','Prüfstationen für zurückgeschickte Ware'],opt:'Wie lassen sich Rücksendungen von vornherein vermeiden, z. B. durch Größenberatung?'}
+];
+let cur=0;const belt=$('belt'),panel=$('panel'),prog=$('prog');
+STOPS.forEach((s,i)=>{const b=document.createElement('button');b.className='stop';b.id='stop-'+i;b.setAttribute('role','tab');b.innerHTML=ICON[s.k]+'<span class="n">Station '+(i+1)+'</span><span class="t">'+s.t+'</span>';b.onclick=()=>show(i,true);belt.appendChild(b)});
+function show(i,scroll){cur=i;const s=STOPS[i];
+ belt.querySelectorAll('.stop').forEach((b,j)=>b.setAttribute('aria-selected',j===i));
+ prog.style.width=((i+1)/STOPS.length*100)+'%';
+ panel.innerHTML='<div style="display:flex;flex-direction:column;gap:10px"><span class="label">Station '+(i+1)+' von '+STOPS.length+'</span><h3>'+s.t+'</h3><p>'+s.txt+'</p><p><strong>Hier wird ständig optimiert:</strong> '+s.opt+'</p></div><div class="tech"><span class="label">Moderne Technik hier</span><ul>'+s.tech.map(x=>'<li>'+x+'</li>').join('')+'</ul></div><div class="nav"><button class="btn" id="prev">← Zurück</button><button class="btn primary" id="next">Weiter →</button></div>';
+ const p=$('prev'),n=$('next');p.disabled=i===0;n.disabled=i===STOPS.length-1;
+ p.onclick=()=>show(cur-1,true);n.onclick=()=>show(cur+1,true);
+ if(scroll)$('stop-'+i).scrollIntoView({block:'nearest',inline:'nearest'});
+}
+show(0,false);
+
+/* 02 Tabs */
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+ document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected',x===t));
+ ['r1','r2'].forEach(id=>$(id).hidden=id!==t.dataset.rep);
+});
+
+/* 03 Fertigungsband */
+let missing=false;
+function drawLine(){const l=$('line');l.innerHTML='';for(let i=0;i<10;i++){const c=document.createElement('div');c.className='car'+(missing&&i<4?' gap':'');l.appendChild(c)}
+ $('lineTxt').textContent=missing?'Ein Teil fehlt: Neue Autos können nicht gebaut werden, die Lücken wandern durch das ganze Band. Alle folgenden Stationen stehen still, Hunderte Beschäftigte warten.':'Das Band läuft. Alle Teile sind rechtzeitig da.';}
+$('missBtn').onclick=()=>{missing=true;drawLine()};$('fixBtn').onclick=()=>{missing=false;drawLine()};drawLine();
+const CH=[
+ {t:'Lkw',d:'Ankunft in 3 Tagen',cost:2,late:52,txt:'Viel zu spät: Das Band steht über 50 Stunden still.'},
+ {t:'Frachtflugzeug',d:'Gerade kein Platz frei',cost:0,late:null,txt:'Nicht verfügbar: Während der Krise waren Frachtkapazitäten knapp.'},
+ {t:'Schiff',d:'Ankunft in 4 Wochen',cost:1,late:650,txt:'Undenkbar: Das Werk stünde wochenlang still.'},
+ {t:'Reisekoffer im Passagierflug',d:'Ankunft in 14 Stunden',cost:40,late:0,txt:'Rechtzeitig! Teuer, aber das Band läuft weiter.'}
+];
+const choices=$('choices');
+CH.forEach((c,i)=>{const b=document.createElement('button');b.className='choice';b.innerHTML='<b>'+c.t+'</b><small>'+c.d+'</small>';b.onclick=()=>{
+ choices.querySelectorAll('.choice').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');
+ const stand=c.late===null?null:c.late*50;
+ let html='<strong>'+c.txt+'</strong><br>';
+ if(c.late===null)html+='Diese Möglichkeit fällt aus.';
+ else html+='Transportkosten: '+c.cost+' Tsd. € · Kosten durch Stillstand: '+stand.toLocaleString('de-DE')+' Tsd. € <span class="note">(angenommen 50 Tsd. € pro Stunde Stillstand)</span><br>Gesamt: <strong>'+(c.cost+stand).toLocaleString('de-DE')+' Tsd. €</strong>';
+ $('choiceRes').innerHTML=html;};choices.appendChild(b)});
+
+/* 04 Störungen */
+const ST=[['Baustelle',1.5],['Unfall mit Stau',3],['Streik',12],['Grenzkontrolle',4],['Zollkontrolle',6],['Unwetter, Sturm oder Schnee',5],['Pandemie-Beschränkungen',30]];
+const tg=$('toggles');
+ST.forEach((s,i)=>{const l=document.createElement('label');l.className='tg';l.innerHTML='<input type="checkbox" id="st'+i+'"><span>'+s[0]+'</span><span>+'+String(s[1]).replace('.',',')+' h</span>';tg.appendChild(l);l.querySelector('input').onchange=calcSt});
+$('stock').oninput=calcSt;
+function calcSt(){let d=0,xs='';ST.forEach((s,i)=>{if($('st'+i).checked){d+=s[1];xs+='<span class="x" style="left:'+(15+i*10)+'%"></span>'}});
+ $('xs').innerHTML=xs;const tot=8+d,stock=+$('stock').value;$('stockV').textContent=stock;
+ $('tt').textContent=String(tot).replace('.',',')+' h';$('delay').textContent=String(d).replace('.',',')+' h';
+ $('truck').style.left='calc(12px + '+Math.max(0,70-d*2.2)+'%)';
+ const st=$('stat');if(tot<=stock){st.className='status ok';st.textContent='Die Teile kommen rechtzeitig an. Puffer: '+String(stock-tot).replace('.',',')+' h'}
+ else{st.className='status no';st.textContent='Bandstillstand! Das Werk steht '+String(tot-stock).replace('.',',')+' Stunden ohne Teile da.'}}
+calcSt();
+
+/* 05 Lösungen */
+document.querySelectorAll('.sol').forEach(b=>b.onclick=()=>{
+ document.querySelectorAll('.sol').forEach(x=>x.setAttribute('aria-selected',x===b));
+ document.querySelectorAll('.solp').forEach(p=>p.hidden=p.id!==b.dataset.s);
+});
+function dayBar(el,arr){el.innerHTML=arr.map(c=>'<i class="'+c+'"></i>').join('')}
+dayBar($('dayH'),Array.from({length:24},(_,h)=>h<6?'rest':h<10?'drive':h===10?'pause':h<16?'drive':'rest'));
+dayBar($('dayA'),Array.from({length:24},(_,h)=>(h>=22||h<6)?'night':'drive'));
+let plat=false;
+function drawPlat(){const g=plat?78:130;$('p1').style.left=(10+2*g)+'px';$('p2').style.left=(10+g)+'px';$('p3').style.left='10px';
+ const w=$('wind');w.style.left=(80)+'px';w.style.width=(2*g-70)+'px';w.style.opacity=plat?1:0;
+ $('platBtn').textContent=plat?'Platooning ausschalten':'Platooning einschalten';$('platBtn').setAttribute('aria-pressed',plat);
+ $('platTxt').textContent=plat?'Verbunden: Die Lkw fahren dicht im Windschatten. Bremst der erste, bremsen alle anderen im selben Moment.':'Ohne Verbindung: Jeder Lkw fährt mit großem Sicherheitsabstand und eigenem Fahrer.'}
+$('platBtn').onclick=()=>{plat=!plat;drawPlat()};drawPlat();
+
+/* 06 Cluster-Sortierspiel */
+const SORT=[
+ ['Kurze Wege zwischen Zulieferern und Hersteller','c','Kurze Wege sparen Zeit und Kosten.'],
+ ['Geht es dem Autowerk schlecht, geraten alle Zulieferer in Schwierigkeiten','r','Die Betriebe sind stark voneinander abhängig.'],
+ ['Nachbarbetriebe teilen sich einen Lkw für ihre Lieferungen','c','Fahrten bündeln spart Kosten und schont die Umwelt.'],
+ ['Gewerbeflächen in der Region werden knapp und teuer','r','Viele Betriebe wollen sich ansiedeln.'],
+ ['Fachleute aus benachbarten Firmen tauschen Erfahrungen aus','c','Know-how-Austausch macht alle besser.'],
+ ['Konkurrenten siedeln sich direkt nebenan an','r','Der Wettbewerb um Aufträge und Fachkräfte steigt.'],
+ ['Störungen auf langen Transportwegen werden seltener','c','Weniger Kilometer bedeuten weniger Staus und Unfälle.']
+];
+let sortOk=0,sortDone=0;const sortEl=$('sort');
+SORT.forEach((s,i)=>{const d=document.createElement('div');d.className='st';d.innerHTML='<span>'+s[0]+'</span><button class="btn small" data-v="c">Chance</button><button class="btn small" data-v="r">Risiko</button><span class="r" hidden></span>';
+ d.querySelectorAll('button').forEach(b=>b.onclick=()=>{if(d.dataset.done)return;d.dataset.done=1;sortDone++;const right=b.dataset.v===s[1];if(right)sortOk++;
+  d.classList.add(right?'right':'wrong');d.querySelectorAll('button').forEach(x=>{x.disabled=true});const r=d.querySelector('.r');r.hidden=false;r.className='r '+(right?'ok':'no');
+  r.textContent=(right?'Richtig. ':'Nicht ganz, das ist eher '+(s[1]==='c'?'eine Chance':'ein Risiko')+'. ')+s[2];
+  $('sortScore').textContent=sortOk+' von '+sortDone+' richtig'+(sortDone===SORT.length?' · alle zugeordnet':'');});
+ sortEl.appendChild(d)});
+
+/* 07 Routen */
+const DEP={x:200,y:150,n:'Depot'};
+const CUS=[{x:70,y:60},{x:150,y:40},{x:320,y:55},{x:350,y:190},{x:240,y:260},{x:60,y:220}];
+let order=[];const svg=$('routeSvg');const NS='http://www.w3.org/2000/svg';
+const dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y)/10;
+function len(ord){let p=DEP,s=0;ord.forEach(i=>{s+=dist(p,CUS[i]);p=CUS[i]});return s+dist(p,DEP)}
+let best=null;(function(){const idx=[0,1,2,3,4,5];let bl=1e9,bo=null;
+ function perm(a,k){if(k===a.length){const l=len(a);if(l<bl){bl=l;bo=a.slice()}return}for(let i=k;i<a.length;i++){[a[k],a[i]]=[a[i],a[k]];perm(a,k+1);[a[k],a[i]]=[a[i],a[k]]}}
+ perm(idx,0);best={o:bo,l:bl}})();
+function fmt(n){return n.toLocaleString('de-DE',{maximumFractionDigits:1})}
+function drawRoute(showBest){svg.innerHTML='';
+ const path=showBest?best.o:order;const pts=[DEP].concat(path.map(i=>CUS[i]));if(showBest||order.length===CUS.length)pts.push(DEP);
+ if(pts.length>1){const pl=document.createElementNS(NS,'polyline');pl.setAttribute('points',pts.map(p=>p.x+','+p.y).join(' '));pl.setAttribute('fill','none');pl.setAttribute('stroke',showBest?'var(--good)':'var(--steel)');pl.setAttribute('stroke-width','3');pl.setAttribute('stroke-linejoin','round');svg.appendChild(pl)}
+ const d=document.createElementNS(NS,'rect');d.setAttribute('x',DEP.x-14);d.setAttribute('y',DEP.y-14);d.setAttribute('width',28);d.setAttribute('height',28);d.setAttribute('rx',3);d.setAttribute('fill','var(--signal)');svg.appendChild(d);
+ const dt=document.createElementNS(NS,'text');dt.setAttribute('x',DEP.x);dt.setAttribute('y',DEP.y+34);dt.setAttribute('text-anchor','middle');dt.setAttribute('fill','var(--fg)');dt.setAttribute('font-size','12');dt.textContent='Depot';svg.appendChild(dt);
+ CUS.forEach((c,i)=>{const g=document.createElementNS(NS,'g');g.setAttribute('class','stopc');g.setAttribute('tabindex','0');g.setAttribute('role','button');g.setAttribute('aria-label','Kunde '+String.fromCharCode(65+i));
+  const ci=document.createElementNS(NS,'circle');ci.setAttribute('cx',c.x);ci.setAttribute('cy',c.y);ci.setAttribute('r',16);const k=order.indexOf(i);
+  ci.setAttribute('fill',k>=0?'var(--steel)':'var(--surface)');ci.setAttribute('stroke','var(--steel)');ci.setAttribute('stroke-width','2.5');
+  const t=document.createElementNS(NS,'text');t.setAttribute('x',c.x);t.setAttribute('y',c.y+5);t.setAttribute('text-anchor','middle');t.setAttribute('font-size','14');t.setAttribute('font-weight','700');t.setAttribute('fill',k>=0?'var(--bg)':'var(--fg)');t.textContent=k>=0?(k+1):String.fromCharCode(65+i);
+  g.appendChild(ci);g.appendChild(t);const act=()=>pick(i);g.addEventListener('click',act);g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();act()}});svg.appendChild(g)});
+ if(!showBest){let s=0,p=DEP;order.forEach(i=>{s+=dist(p,CUS[i]);p=CUS[i]});if(order.length===CUS.length)s+=dist(p,DEP);$('myKm').textContent=fmt(s)+' km'}
+}
+function pick(i){if(order.includes(i)||order.length===CUS.length)return;order.push(i);drawRoute(false);
+ if(order.length===CUS.length){const my=len(order),diff=my-best.l;$('bestKm').textContent=fmt(best.l)+' km';
+  $('routeTxt').innerHTML=diff<0.05?'<strong class="ok">Perfekt! Du hast die kürzeste von 720 möglichen Routen gefunden.</strong>':'<strong class="no">Deine Route ist '+fmt(diff)+' km länger als die beste.</strong> Der Rechner hat alle 720 Reihenfolgen durchprobiert.'}
+ else $('routeTxt').textContent='Noch '+(CUS.length-order.length)+' Kunden. Nach dem letzten fährt der Wagen zurück ins Depot.'}
+$('routeReset').onclick=()=>{order=[];$('bestKm').textContent='?';$('routeTxt').textContent='Klicke auf den ersten Kunden.';drawRoute(false)};
+$('routeBest').onclick=()=>{$('bestKm').textContent=fmt(best.l)+' km';drawRoute(true);$('routeTxt').textContent='Grün: die kürzeste Route. Bei nur 6 Kunden kann der Rechner alle Möglichkeiten prüfen.'};
+drawRoute(false);
+function fact(n){let r=1n;for(let i=2n;i<=BigInt(n);i++)r*=i;return r}
+function permUpdate(){const n=+$('nStops').value;$('nV').textContent=n;const f=fact(n);$('perm').textContent=f.toLocaleString('de-DE')+' Reihenfolgen';
+ const sec=Number(f)/1e9;let t;
+ if(sec<1)t='weniger als eine Sekunde';else if(sec<60)t='etwa '+Math.round(sec)+' Sekunden';else if(sec<3600)t='etwa '+Math.round(sec/60)+' Minuten';else if(sec<86400)t='etwa '+Math.round(sec/3600)+' Stunden';else if(sec<31536000)t='etwa '+Math.round(sec/86400)+' Tage';else{const y=sec/31536000;t='etwa '+(y<1e6?Math.round(y).toLocaleString('de-DE'):y.toExponential(1).replace('.',',').replace('e+',' · 10^'))+' Jahre'}
+ $('permTxt').innerHTML='Ein Computer, der <strong>1 Milliarde Routen pro Sekunde</strong> prüft, bräuchte dafür '+t+'.'}
+$('nStops').oninput=permUpdate;permUpdate();
+
+/* 08 Ameisen */
+(function(){const cv=$('ants'),ctx=cv.getContext('2d');const W=800,H=300;const N={x:70,y:150},F={x:730,y:150};
+ const paths=[{c:{x:400,y:40},len:0,ph:1},{c:{x:400,y:380},len:0,ph:1}];
+ function bez(p,t){const c=p.c;return{x:(1-t)*(1-t)*N.x+2*(1-t)*t*c.x+t*t*F.x,y:(1-t)*(1-t)*N.y+2*(1-t)*t*c.y+t*t*F.y}}
+ paths.forEach(p=>{let L=0,prev=bez(p,0);for(let i=1;i<=100;i++){const q=bez(p,i/100);L+=Math.hypot(q.x-prev.x,q.y-prev.y);prev=q}p.len=L});
+ let ants=[],blocked=false,counts=[0,0];
+ function choose(){if(blocked)return 1;const a=Math.pow(paths[0].ph,2),b=Math.pow(paths[1].ph,2);return Math.random()<a/(a+b)?0:1}
+ function reset(){ants=[];paths.forEach(p=>p.ph=1);counts=[0,0];for(let i=0;i<40;i++)ants.push({p:choose(),t:Math.random(),dir:1})}
+ reset();
+ $('antReset').onclick=()=>{blocked=false;$('antBlock').setAttribute('aria-pressed','false');$('antBlock').textContent='Kurzen Weg sperren (Stau)';reset()};
+ $('antBlock').onclick=()=>{blocked=!blocked;$('antBlock').setAttribute('aria-pressed',blocked);$('antBlock').textContent=blocked?'Sperre aufheben':'Kurzen Weg sperren (Stau)';if(blocked){ants.forEach(a=>{if(a.p===0&&a.dir===1&&a.t<.5){a.p=1}})}};
+ const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+ const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ function step(){const speed=7;
+  ants.forEach(a=>{const p=paths[a.p];a.t+=a.dir*speed/p.len;
+   if(a.t>=1){a.t=1;a.dir=-1}
+   else if(a.t<=0){a.t=0;a.dir=1;paths[a.p].ph+=1.6;counts[a.p]++;a.p=choose()}});
+  paths.forEach(p=>p.ph=Math.max(.05,p.ph*.996));if(blocked)paths[0].ph*=.97;}
+ function draw(){ctx.clearRect(0,0,W,H);const steel=css('--steel'),sig=css('--signal'),fg=css('--fg'),bad=css('--bad'),line=css('--line');
+  const tot=paths[0].ph+paths[1].ph;
+  paths.forEach((p,i)=>{ctx.beginPath();ctx.moveTo(N.x,N.y);ctx.quadraticCurveTo(p.c.x,p.c.y,F.x,F.y);ctx.strokeStyle=line;ctx.lineWidth=22;ctx.stroke();
+   ctx.beginPath();ctx.moveTo(N.x,N.y);ctx.quadraticCurveTo(p.c.x,p.c.y,F.x,F.y);ctx.strokeStyle=sig;ctx.globalAlpha=.85;ctx.lineWidth=Math.max(1,16*p.ph/tot);ctx.stroke();ctx.globalAlpha=1});
+  if(blocked){const m=bez(paths[0],.5);ctx.fillStyle=bad;ctx.fillRect(m.x-18,m.y-18,36,36);ctx.fillStyle='#fff';ctx.font='bold 26px sans-serif';ctx.textAlign='center';ctx.fillText('×',m.x,m.y+9)}
+  ants.forEach(a=>{const q=bez(paths[a.p],a.t);ctx.beginPath();ctx.arc(q.x,q.y,4,0,7);ctx.fillStyle=fg;ctx.fill()});
+  [[N,'Nest'],[F,'Futter']].forEach(([o,l])=>{ctx.beginPath();ctx.arc(o.x,o.y,26,0,7);ctx.fillStyle=steel;ctx.fill();ctx.fillStyle=css('--bg');ctx.font='bold 15px sans-serif';ctx.textAlign='center';ctx.fillText(l,o.x,o.y+5)});
+  const s=Math.round(paths[0].ph/tot*100);$('shareS').textContent=s+' %';$('shareL').textContent=(100-s)+' %';}
+ if(reduce){for(let i=0;i<4000;i++)step();draw();$('antBlock').onclick=()=>{blocked=!blocked;$('antBlock').setAttribute('aria-pressed',blocked);for(let i=0;i<4000;i++)step();draw()}}
+ else{(function loop(){step();draw();requestAnimationFrame(loop)})()}
+})();
+
+/* 09 Blockchain */
+function h(s){let a=5381;for(let i=0;i<s.length;i++){a=((a<<5)+a+s.charCodeAt(i))>>>0}return a.toString(16).padStart(8,'0').toUpperCase()}
+const B0=['12.03. · Container MSKU 482 in Shanghai verladen · 1.200 Kartons','04.04. · Ankunft Hafen Rotterdam · Temperatur 5 °C','05.04. · Zollfreigabe erteilt · Dokument Nr. 77-1342','07.04. · Lieferung im Autowerk angenommen · Unterschrift geprüft'];
+let BD=B0.slice(),stored=[];
+function calcStored(){stored=[];let prev='00000000';BD.forEach(d=>{const x=h(prev+d);stored.push(x);prev=x})}
+calcStored();
+function drawChain(){const c=$('chain');c.innerHTML='';let prev='00000000',broken=-1;
+ BD.forEach((d,i)=>{const now=h(prev+d);const bad=broken>=0||now!==stored[i];if(bad&&broken<0)broken=i;
+  if(i>0){const l=document.createElement('div');l.className='link'+(bad?' bad':'');c.appendChild(l)}
+  const b=document.createElement('div');b.className='blk'+(bad?' bad':'');
+  b.innerHTML='<span class="label">Block '+(i+1)+'</span><label class="note" for="bd'+i+'">Eintrag</label><textarea id="bd'+i+'"></textarea><span class="note">Vorgänger</span><code>'+prev+'</code><span class="note">Prüfsumme</span><code>'+now+'</code><span class="pill '+(bad?'no':'ok')+'">'+(bad?'ungültig':'gültig')+'</span>';
+  c.appendChild(b);const ta=b.querySelector('textarea');ta.value=d;ta.oninput=e=>{BD[i]=e.target.value;const pos=e.target.selectionStart;drawChain();const n=$('bd'+i);n.focus();n.setSelectionRange(pos,pos)};prev=now});
+ const ns=['Reederei','Hafen','Zoll','Autowerk'];$('nodes').innerHTML=ns.map((n,i)=>'<span class="node"><span class="lamp '+(broken>=0&&i===ns.length-1?'off':'on')+'"></span>Kopie '+n+'</span>').join('');
+ $('chainTxt').innerHTML=broken<0?'Alle Blöcke sind gültig. Alle Beteiligten haben dieselbe Kopie.':'<strong class="no">Manipulation entdeckt!</strong> Ab Block '+(broken+1)+' passen die Prüfsummen nicht mehr. Angenommen, das Autowerk hat seine Kopie geändert: Sie weicht nun von den Kopien von Reederei, Hafen und Zoll ab. Die Mehrheit erkennt die Fälschung sofort.';}
+drawChain();$('chainReset').onclick=()=>{BD=B0.slice();drawChain()};
+function sc(){const a=$('c1').checked,t=+$('c2').value,b=t<=8,c=$('c3').checked;$('tV').textContent=t;
+ $('l1').className='lamp '+(a?'on':'off');$('l2').className='lamp '+(b?'on':'off');$('l3').className='lamp '+(c?'on':'off');
+ const r=$('scRes');if(a&&b&&c){r.className='status ok';r.textContent='Alle Bedingungen erfüllt: Die Zahlung von 12.400 € wird automatisch ausgelöst und in der Blockchain gespeichert.'}
+ else if(!b){r.className='status no';r.textContent='Die Kühlkette wurde unterbrochen. Der Vertrag stoppt die Zahlung und meldet einen Schadensfall.'}
+ else{r.className='status no';r.textContent='Zahlung wartet. Noch nicht alle Bedingungen erfüllt.'}}
+['c1','c2','c3'].forEach(id=>$(id).addEventListener('input',sc));sc();
+const UC=[
+ ['Herkunfts­nachweis','Jede Ware bekommt einen digitalen „Pass“: Wo und wann wurde sie hergestellt, welchen Weg hat sie genommen? Beispiel Wein: Gefälschter Alkohol kann die Gesundheit gefährden. Mit der Blockchain lässt sich bis zum Weingut zurückverfolgen, woher eine Flasche stammt, und alle Händler auf dem Weg sind sichtbar. Auch Kundinnen und Kunden können die Herkunft prüfen.'],
+ ['Zahlungen und Rechnungen','Bisher führt jede Firma eigene Unterlagen, Rechnungen und Zahlungen werden mühsam von Hand abgeglichen. Eine „vernetzte Palette“ meldet automatisch Lieferzeit und Zustand der Ware. Die Blockchain bestätigt die Lieferung, und ein Smart Contract löst die Zahlung aus. Das spart Zeit und schafft Vertrauen.'],
+ ['Digitale Dokumente','Frachtpapiere, Zertifikate und Rechnungen werden digital in der Blockchain gespeichert und mit Echtzeitdaten von Sensoren verknüpft. Laut Studie nutzen die Häfen in Antwerpen, Rotterdam und Singapur bereits solche Lösungen. In Rotterdam laufen Warenströme, Verwaltung und Zahlungen papierlos.'],
+ ['Identitäts­prüfung','Die Blockchain schützt Ausweisdaten vor Missbrauch. Sie regelt, wer Informationen über Abholung und Lieferung eintragen darf. Auch Zusteller auf der letzten Meile oder der Führerschein eines Lkw-Fahrers lassen sich so sicher überprüfen.'],
+ ['Logistik-Marktplatz','Speditionen bieten freie Plätze auf Lkw oder Schiffen in Echtzeit auf einer gemeinsamen Plattform an. Andere Firmen können diese Kapazität buchen. So fahren weniger Lkw halb leer, und die Zusammenarbeit wird günstiger und schneller.']
+];
+const ucT=$('ucTabs');UC.forEach((u,i)=>{const b=document.createElement('button');b.className='uc';b.setAttribute('role','tab');b.innerHTML='<span class="label">0'+(i+1)+'</span><br><b>'+u[0]+'</b>';b.onclick=()=>ucShow(i);ucT.appendChild(b)});
+function ucShow(i){ucT.querySelectorAll('.uc').forEach((b,j)=>b.setAttribute('aria-selected',i===j));$('ucBox').innerHTML='<h3>'+UC[i][0].replace('­','')+'</h3><p>'+UC[i][1]+'</p>'}
+ucShow(0);
+
+/* 10 Vorteile */
+const ADV=[
+ ['Schneller','Tempo','Bestellt am Abend, geliefert am nächsten Tag: Roboter und Sortieranlagen arbeiten rund um die Uhr.'],
+ ['Günstiger','Kosten','Volle Lkw, kurze Routen und wenig Lagerfläche durch Just-in-time sparen Geld.'],
+ ['Zuverlässiger','Qualität','Jedes Scannen ist eine Kontrolle. Vernetzung und Blockchain machen Fehler und Betrug sichtbar.'],
+ ['Umweltfreund­licher','Klima','Optimierte Routen, Platooning und gebündelte Lieferungen sparen Kraftstoff und CO₂.'],
+ ['Transparenter','Info','Alle Beteiligten sehen, wo die Ware gerade ist, vom Container bis zur Haustür.']
+];
+const adv=$('adv');ADV.forEach(a=>{const c=document.createElement('button');c.className='card';c.setAttribute('aria-label',a[0]+': Beispiel anzeigen');c.innerHTML='<div class="in"><div class="f"><small>'+a[1]+'</small><h3>'+a[0]+'</h3><small>Tippen ↻</small></div><div class="b">'+a[2]+'</div></div>';c.onclick=()=>c.classList.toggle('flip');adv.appendChild(c)});
+
+/* 11 Waage */
+const ARG={c:['Weniger Störungen','Optimierte Abläufe','Automatisierung von Tätigkeiten','Einsparung von Personal','Höhere Wettbewerbsfähigkeit','Höhere Verfügbarkeit von Waren','Entlastung der Umwelt','Kosteneinsparungen'],r:['Abhängigkeit von neuer Technik','Hohe Kosten für Anschaffung und Betrieb','Verlust von Arbeitsplätzen','Lohnt sich kaum für kleine Firmen','Gefahr durch Hackerangriffe und Systemausfälle']};
+let W={};try{W=JSON.parse(store.get('logi-w')||'{}')||{}}catch(e){W={}}
+function drawArgs(){['c','r'].forEach(s=>{const box=$(s==='c'?'argC':'argR');box.querySelectorAll('.arg').forEach(x=>x.remove());
+ ARG[s].forEach((a,i)=>{const k=s+i,v=W[k]||0;const b=document.createElement('button');b.className='arg '+s;b.innerHTML='<span>'+a+'</span><span class="w" aria-label="'+v+' Punkte">'+'●'.repeat(v)+'○'.repeat(3-v)+'</span>';b.onclick=()=>{W[k]=((W[k]||0)+1)%4;store.set('logi-w',JSON.stringify(W));drawArgs()};box.appendChild(b)})});
+ let sc=0,sr=0;Object.keys(W).forEach(k=>{if(k[0]==='c')sc+=W[k];else sr+=W[k]});
+ const ang=Math.max(-14,Math.min(14,(sr-sc)*1.5));$('beam').style.transform='rotate('+ang+'deg)';
+ $('scaleTxt').innerHTML='Chancen <strong>'+sc+'</strong> : <strong>'+sr+'</strong> Risiken · '+(sc===0&&sr===0?'Noch keine Bewertung.':sc>sr?'Für dich überwiegen die Chancen.':sr>sc?'Für dich überwiegen die Risiken.':'Ausgeglichen.')}
+drawArgs();
+const fz=$('fazit');fz.value=store.get('logi-fazit')||'';fz.oninput=()=>store.set('logi-fazit',fz.value);
+
+/* 12 Quiz */
+const Q=[
+ {q:'Wie viele Pakete wurden 2024 in Deutschland etwa verschickt?',o:['500 Millionen','5 Milliarden','50 Milliarden'],a:1,e:'Laut ntv waren es rund 5 Milliarden, 2021 noch etwa 4,5 Milliarden.'},
+ {q:'Was bedeutet „Just-in-time“?',o:['Teile werden genau dann geliefert, wenn sie gebraucht werden','Alle Teile werden ein Jahr im Voraus eingelagert','Lieferungen kommen immer pünktlich um 12 Uhr'],a:0,e:'Das spart Lagerkosten, macht die Produktion aber anfällig für Störungen.'},
+ {q:'Warum transportierten Autohersteller Teile im Reisekoffer per Passagierflug?',o:['Weil es die günstigste Transportart ist','Weil sonst ein teurer Stillstand der Produktion gedroht hätte','Weil Lkw verboten waren'],a:1,e:'Ein Bandstillstand kostet durch Umsatzausfälle ein Vielfaches des teuren Transports.'},
+ {q:'Was ist Platooning?',o:['Mehrere Lkw fahren elektronisch gekoppelt als Kolonne','Ein Lkw fährt nur nachts','Ein Lager mit Robotern'],a:0,e:'Nur im ersten Lkw lenkt ein Mensch aktiv, die anderen folgen automatisch.'},
+ {q:'Was ist ein Risiko der Clusterbildung?',o:['Kurze Lieferwege','Abhängigkeit vom zentralen Betrieb','Austausch von Know-how'],a:1,e:'Bekommt das Autowerk Probleme, trifft es den ganzen Cluster.'},
+ {q:'Wie viele mögliche Reihenfolgen gibt es für 10 Kunden?',o:['100','3.628.800','1.000'],a:1,e:'10! = 1 · 2 · 3 · … · 10 = 3.628.800. Mit jedem weiteren Kunden wächst die Zahl explosionsartig.'},
+ {q:'Wie finden Ameisen den kürzesten Weg?',o:['Eine Anführerin plant die Route','Über Duftspuren, die auf kurzen Wegen schneller stärker werden','Sie folgen dem Sonnenstand'],a:1,e:'Das ist Schwarmintelligenz. Vernetzte Lkw könnten GPS-Daten ähnlich nutzen.'},
+ {q:'Was ist ein Smart Contract?',o:['Ein Vertrag auf besonders festem Papier','Ein Programm, das automatisch handelt, wenn Bedingungen erfüllt sind','Ein Arbeitsvertrag für Lagerroboter'],a:1,e:'Zum Beispiel: Ware angekommen und unbeschädigt → Zahlung wird automatisch ausgelöst.'},
+ {q:'Warum ist eine Blockchain schwer zu fälschen?',o:['Weil sie in einem Tresor liegt','Weil jeder Block mit dem vorherigen verknüpft ist und alle Beteiligten eine Kopie haben','Weil nur eine Person sie lesen darf'],a:1,e:'Eine Änderung verändert die Prüfsummen aller folgenden Blöcke und weicht von den anderen Kopien ab.'},
+ {q:'Welche Hürde bremst die Blockchain in der Logistik laut PwC?',o:['Es gibt keinen gemeinsamen Standard','Sie ist zu billig','Sie funktioniert nur auf Papier'],a:0,e:'Viele Einzellösungen passen nicht zusammen. Dazu fehlen Wissen und klare Regeln.'},
+ {q:'Was ist ein Risiko der Digitalisierung in der Logistik?',o:['Weniger Störungen','Abhängigkeit von neuer Technik','Entlastung der Umwelt'],a:1,e:'Fällt das System aus, steht im schlimmsten Fall alles still.'},
+ {q:'Was beschreibt den kontinuierlichen Verbesserungsprozess?',o:['Einmal optimieren, dann nie wieder ändern','Planen, umsetzen, prüfen, verbessern, und dann von vorn','Alle Prozesse jedes Jahr komplett neu erfinden'],a:1,e:'Logistik ist nie fertig: Jeder Ablauf wird immer wieder gemessen und verbessert.'}
+];
+let qi=0,score=0;const qb=$('quizbox');
+function renderQ(focus){
+ if(qi>=Q.length){qb.innerHTML='<span class="label">Ergebnis</span><h3>'+score+' von '+Q.length+' richtig</h3><p>'+(score>=11?'Hervorragend! Du bist ein echter Logistikprofi.':score>=8?'Gut gemacht! Schau dir die Kapitel mit Fehlern noch einmal an.':'Geh die Kapitel noch einmal durch und versuche es erneut.')+'</p><div><button class="btn primary" id="again">Nochmal versuchen</button></div>';$('again').onclick=()=>{qi=0;score=0;renderQ(true)};return}
+ const d=Q[qi];
+ qb.innerHTML='<div class="qtop"><span class="label">Frage '+(qi+1)+' von '+Q.length+'</span><span class="label">Punkte: '+score+'</span></div><h3 tabindex="-1" id="qh">'+d.q+'</h3><div class="opts">'+d.o.map((o,i)=>'<button class="opt" data-i="'+i+'">'+o+'</button>').join('')+'</div><p class="fb" id="fb" aria-live="polite"></p><div><button class="btn primary" id="nq" hidden>Nächste Frage →</button></div>';
+ if(focus)$('qh').focus({preventScroll:true});
+ qb.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+  const i=+b.dataset.i,fb=$('fb');
+  qb.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(+x.dataset.i===d.a)x.classList.add('okk')});
+  if(i===d.a){score++;fb.className='fb ok';fb.textContent='Richtig! '+d.e}else{b.classList.add('nok');fb.className='fb no';fb.textContent='Leider falsch. '+d.e}
+  const n=$('nq');n.hidden=false;n.textContent=qi===Q.length-1?'Ergebnis anzeigen →':'Nächste Frage →';n.onclick=()=>{qi++;renderQ(true)};n.focus({preventScroll:true});
+ });
+}
+renderQ(false);
+</script>
+
+</body></html>
